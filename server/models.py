@@ -4,13 +4,13 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # Event model
-class Event(db.Model):
+class Event(db.Model, SerializerMixin):
     __tablename__ = 'events'
-    
+
     id = db.Column(db.Integer, primary_key=True)
-    eventName = db.Column(db.Integer, primary_key=True)
-    eventType = db.Column(db.Integer, primary_key=True)
-    # Add event attributes (type, date, budget amount, etc.)
+    name = db.Column(db.String(100), nullable=False)  # changed fieldName and removed primary_key
+    type = db.Column(db.String(100), nullable=True)  # changed fieldName and removed primary_key
+
 
     # Establish the many-to-many relationship with vendors
     vendors = db.relationship('Vendor', secondary='event_vendor', backref='events')

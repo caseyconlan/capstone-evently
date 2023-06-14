@@ -2,8 +2,10 @@ from flask import Flask, jsonify, request
 from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 migrate = Migrate(app, db)
 
 # Configure your Flask app and database connection here
@@ -29,14 +31,22 @@ def get_events():
     event_list = [event.to_dict() for event in events]
     return jsonify(events=event_list)
 
-
+# app.py
 @app.route('/api/events', methods=['POST'])
 def create_event():
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
     data = request.get_json()
-    event = Event(name=data['name'])
+    
+    if 'name' not in data:
+        return jsonify({"msg": "Missing event name in request"}), 400
+
+    event = Event(name=data['name'], type=data.get('type'))  # set the type if it's included in the data
     db.session.add(event)
     db.session.commit()
-    return jsonify(message='Event created successfully')
+
+    return event.to_dict(), 201
 
 @app.route('/api/events/<int:event_id>', methods=['GET'])
 def get_event(event_id):
@@ -69,4 +79,4 @@ def delete_event(event_id):
     return jsonify(message='Event deleted successfully')
 
 if __name__ == '__main__':
-    app.run(port=5555)
+    app.run(port=4000, debug=True)
