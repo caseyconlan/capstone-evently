@@ -5,6 +5,8 @@ import Budget from './Budget';
 import ProjectPlan from './ProjectPlan';
 import VendorList from './VendorList';
 import GuestList from './GuestList';
+import EventList from './EventList';
+import EventDetails from './EventDetails';  // make sure to import the new component
 
 const App = () => {
   return (
@@ -17,6 +19,7 @@ const App = () => {
           <Route path="/project-plan" component={ProjectPlan} />
           <Route path="/list-of-vendors" component={VendorList} />
           <Route path="/guest-list" component={GuestList} />
+          <Route path="/events/:id" component={EventDetails} />  // new route
         </Switch>
       </div>
     </Router>
