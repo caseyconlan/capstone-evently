@@ -10,7 +10,7 @@ class Event(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)  # changed fieldName and removed primary_key
     type = db.Column(db.String(100), nullable=True)  # changed fieldName and removed primary_key
-
+    budget_amount = db.Column(db.Float, default=0.0)
 
     # Establish the many-to-many relationship with vendors
     vendors = db.relationship('Vendor', secondary='event_vendor', backref='events')
@@ -48,6 +48,18 @@ class Vendor(db.Model):
     phone = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     address = db.Column(db.String(200), nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'product_service': self.product_service,
+            'category': self.category,
+            'contact_person': self.contact_person,
+            'phone': self.phone,
+            'email': self.email,
+            'address': self.address
+        }
 
 # Association table for the many-to-many relationship between events and vendors
 event_vendor = db.Table(

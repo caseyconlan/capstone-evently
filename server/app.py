@@ -78,5 +78,47 @@ def delete_event(event_id):
     #     db.session.commit()
     return jsonify(message='Event deleted successfully')
 
+@app.route('/api/events/<int:event_id>/vendors', methods=['POST'])
+def add_vendor(event_id):
+    data = request.get_json()
+    vendor = Vendor(
+        name=data['name'],
+        product_service=data['product_service'],
+        category=data['category'],
+        contact_person=data['contact_person'],
+        phone=data['phone'],
+        email=data['email'],
+        address=data['address']
+    )
+    event = Event.query.get(event_id)
+    if event:
+        event.vendors.append(vendor)
+        db.session.add(vendor)
+        db.session.commit()
+        return jsonify(vendor=vendor.to_dict()), 201
+    else:
+        return jsonify(message='Event not found'), 404
+    
+@app.route('/api/events/<int:event_id>/budget', methods=['PUT'])
+def update_target_budget(event_id):
+    # Retrieve the target budget from the request body
+    target_budget = request.json.get('budget')
+
+    # Update the target budget for the event with the given ID
+    # (code to update the target budget in the database)
+
+    # Return a response indicating success
+    return jsonify(message='Target budget updated successfully')
+
+@app.route('/api/events/<int:event_id>/budget', methods=['GET'])
+def get_budget(event_id):
+    # Retrieve the budget for the event with the given ID from the database
+    event = Event.query.get(event_id)
+    if event:
+        budget = event.budget_amount
+        return jsonify(budget=budget)
+    else:
+        return jsonify(message='Event not found'), 404
+
 if __name__ == '__main__':
-    app.run(port=4000, debug=True)
+    app.run(port=5555, debug=True)
