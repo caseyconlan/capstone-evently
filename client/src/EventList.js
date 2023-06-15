@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -36,7 +37,9 @@ const EventList = () => {
     <div>
       {events.map((event) => (
         <div key={event.id}>
-          <span>{event.name}</span>
+          <Link to={`/events/${event.id}`}>
+            <span>{event.name}</span>
+          </Link>
         </div>
       ))}
       <input value={eventName} onChange={(e) => setEventName(e.target.value)} />

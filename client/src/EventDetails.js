@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import VendorList from './VendorList';
 
-function EventDetails() {
+const EventDetails = () => {
   const { id } = useParams();
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/events/${id}`)
-      .then(res => {
-        setEvent(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [id]);
+    fetchEventDetails();
+  }, []);
+
+  const fetchEventDetails = async () => {
+    try {
+      const response = await axios.get(`/api/events/${id}`);
+      setEvent(response.data.event);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (!event) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <h1>{event.name}</h1>
-      {/* add your forms for budget, vendors, etc here */}
+      <h2>Event ID: {id}</h2>
+      {/* Render other event details */}
+      <VendorList eventId={id} />
     </div>
   );
-}
+};
 
 export default EventDetails;

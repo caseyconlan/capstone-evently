@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/project-plan" component={ProjectPlan} />
           <Route path="/list-of-vendors" component={VendorList} />
           <Route path="/guest-list" component={GuestList} />
-          <Route path="/events/:id" component={EventDetails} />  // new route
+          <Route path="/events/:id" component={EventDetails} /> 
         </Switch>
       </div>
     </Router>
