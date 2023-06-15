@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import VendorList from './VendorList';
+import Budget from './Budget';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -30,6 +31,7 @@ const EventDetails = () => {
       <h2>Event ID: {id}</h2>
       {/* Render other event details */}
       <VendorList eventId={id} />
+      <Budget eventId={id} />
     </div>
   );
 };

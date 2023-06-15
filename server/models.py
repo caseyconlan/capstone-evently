@@ -8,18 +8,25 @@ class Event(db.Model, SerializerMixin):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)  # changed fieldName and removed primary_key
-    type = db.Column(db.String(100), nullable=True)  # changed fieldName and removed primary_key
+    name = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(100), nullable=True)
     budget_amount = db.Column(db.Float, default=0.0)
+    target_budget = db.Column(db.Float, default=0.0)  # Add target_budget column
 
     # Establish the many-to-many relationship with vendors
     vendors = db.relationship('Vendor', secondary='event_vendor', backref='events')
+
+    # Establish the one-to-many relationship with budget items
+    budget_items = db.relationship('BudgetItem', backref='event', lazy=True)
+
 
 # BudgetItem model
 class BudgetItem(db.Model):
     __tablename__ = 'budget_items'
     
     id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)  # Add foreign key
+
     # Add budget item attributes
 
 # ProjectItem model

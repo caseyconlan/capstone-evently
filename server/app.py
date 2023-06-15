@@ -102,7 +102,7 @@ def add_vendor(event_id):
 @app.route('/api/events/<int:event_id>/budget', methods=['PUT'])
 def update_target_budget(event_id):
     # Retrieve the target budget from the request body
-    target_budget = request.json.get('budget')
+    target_budget = request.json.get('target_budget')
 
     # Update the target budget for the event with the given ID
     # (code to update the target budget in the database)
@@ -119,6 +119,50 @@ def get_budget(event_id):
         return jsonify(budget=budget)
     else:
         return jsonify(message='Event not found'), 404
+
+@app.route('/api/events/<int:event_id>/budget', methods=['POST'])
+def handle_save_target_budget(event_id):
+    target_budget = request.json.get('target_budget')
+
+    event = Event.query.get(event_id)
+    if event:
+        event.target_budget = target_budget  # Set the target_budget attribute
+        db.session.commit()
+        return jsonify(message='Target budget updated successfully')
+    else:
+        return jsonify(message='Event not found'), 404
+
+
+def calculate_actual_budget(event):
+    costs = BudgetItem.query.filter_by(event_id=event.id).all()
+    total_cost = sum(cost.amount for cost in costs)
+    return total_cost
+
+def calculate_actual_budget(event):
+    costs = event.budget_items
+    total_cost = sum(cost.amount for cost in costs)
+    return total_cost
+
+@app.route('/api/events/<int:event_id>/budget/actual', methods=['GET'])
+def get_actual_budget(event_id):
+    # Retrieve the actual budget for the event with the given ID from the database
+    event = Event.query.get(event_id)
+    if event:
+        actual_budget = calculate_actual_budget(event)  # Calculate the actual budget based on the event's costs
+        return jsonify(budget=actual_budget)
+    else:
+        return jsonify(message='Event not found'), 404
+
+@app.route('/api/events/<int:event_id>/budget/target', methods=['GET'])
+def get_target_budget(event_id):
+    # Retrieve the target budget for the event with the given ID from the database
+    event = Event.query.get(event_id)
+    if event:
+        target_budget = event.target_budget
+        return jsonify(target_budget=target_budget)
+    else:
+        return jsonify(message='Event not found'), 404
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

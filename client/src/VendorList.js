@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AddVendorForm from './AddVendorForm';
 
 const VendorList = ({ eventId }) => {
   const [vendors, setVendors] = useState([]);
@@ -21,24 +22,25 @@ const VendorList = ({ eventId }) => {
     }
   };
 
-  const renderVendorList = () => {
-    return vendors.map((vendor) => (
-      <div key={vendor.id}>
-        <h3>{vendor.name}</h3>
-        <p>Product/Service: {vendor.product_service}</p>
-        <p>Category: {vendor.category}</p>
-        <p>Contact Person: {vendor.contact_person}</p>
-        <p>Phone: {vendor.phone}</p>
-        <p>Email: {vendor.email}</p>
-        <p>Address: {vendor.address}</p>
-      </div>
-    ));
+  const handleVendorAdded = (vendor) => {
+    setVendors([...vendors, vendor]);
   };
 
   return (
     <div>
       <h2>Vendor List</h2>
-      {renderVendorList()}
+      <AddVendorForm eventId={eventId} onVendorAdded={handleVendorAdded} />
+      {vendors.map((vendor) => (
+        <div key={vendor.id}>
+          <h3>{vendor.name}</h3>
+          <p>Product/Service: {vendor.product_service}</p>
+          <p>Category: {vendor.category}</p>
+          <p>Contact Person: {vendor.contact_person}</p>
+          <p>Phone: {vendor.phone}</p>
+          <p>Email: {vendor.email}</p>
+          <p>Address: {vendor.address}</p>
+        </div>
+      ))}
     </div>
   );
 };
