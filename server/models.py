@@ -39,10 +39,33 @@ class ProjectItem(db.Model):
 # Guest model
 class Guest(db.Model):
     __tablename__ = 'guests'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    # Add guest attributes
 
+    id = db.Column(db.Integer, primary_key=True)
+    guest_title = db.Column(db.String(50), nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    address = db.Column(db.String(200), nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    state = db.Column(db.String(100), nullable=False)
+    zip = db.Column(db.String(20), nullable=False)
+    rsvp = db.Column(db.Boolean, default=False)
+
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+    event = db.relationship('Event', backref=db.backref('guests', lazy=True))
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'guest_title': self.guest_title,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'address': self.address,
+            'city': self.city,
+            'state': self.state,
+            'zip': self.zip,
+            'rsvp': self.rsvp,
+            'event_id': self.event_id
+        }
 
 class Vendor(db.Model):
     __tablename__ = 'vendors'

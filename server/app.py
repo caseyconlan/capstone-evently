@@ -163,6 +163,50 @@ def get_target_budget(event_id):
     else:
         return jsonify(message='Event not found'), 404
 
+@app.route('/api/events/<int:event_id>/guests', methods=['GET'])
+def get_guests(event_id):
+    event = Event.query.get(event_id)
+    if event:
+        guests = event.guests
+        guest_list = [guest.to_dict() for guest in guests]
+        return jsonify(guests=guest_list)
+    else:
+        return jsonify(message='Event not found'), 404
+
+@app.route('/api/events/<int:event_id>/guests', methods=['POST'])
+def add_guest(event_id):
+    data = request.get_json()
+    
+    # Check if the required fields are present in the request data
+    if 'guestTitle' not in data or 'firstName' not in data or 'lastName' not in data or 'address' not in data or 'city' not in data or 'state' not in data or 'zip' not in data:
+        return jsonify({"msg": "Missing required guest information"}), 400
+    
+    # Set default value for rsvp if it's an empty string
+    rsvp = data.get('rsvp', False)
+    if rsvp == '':
+        rsvp = False
+    
+    # Create a new guest object with the provided data
+    guest = Guest(
+        guest_title=data['guestTitle'],
+        first_name=data['firstName'],
+        last_name=data['lastName'],
+        address=data['address'],
+        city=data['city'],
+        state=data['state'],
+        zip=data['zip'],
+        rsvp=rsvp
+    )
+    
+    # Add the guest to the event's guest list
+    event = Event.query.get(event_id)
+    if event:
+        event.guests.append(guest)
+        db.session.add(guest)
+        db.session.commit()
+        return jsonify(guest=guest.to_dict()), 201
+    else:
+        return jsonify(message='Event not found'), 404
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
