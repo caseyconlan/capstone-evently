@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './App.css';
 
 const AddVendorForm = ({ eventId, onVendorAdded }) => {
   const [vendorData, setVendorData] = useState({
@@ -77,7 +78,7 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
           Address:
           <input type="text" name="address" value={vendorData.address} onChange={handleInputChange} />
         </label>
-        <button type="submit">Add Vendor</button>
+        <button className="add-event-button" type="submit">Add Vendor</button>
       </form>
     </div>
   );

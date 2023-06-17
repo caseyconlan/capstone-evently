@@ -59,24 +59,32 @@ def get_event(event_id):
 
 @app.route('/api/events/<int:event_id>', methods=['PUT'])
 def update_event(event_id):
-    data = request.get_json()
-    # Implement logic to update a specific event by its ID with the provided data
-    # Example: event = Event.query.get(event_id)
-    # if event:
-    #     event.type = data['type']
-    #     event.date = data['date']
-    #     event.budget_amount = data['budget_amount']
-    #     db.session.commit()
-    return jsonify(message='Event updated successfully')
+    event = Event.query.get(event_id)
+    if event is None:
+        return jsonify(message='Event not found'), 404
+
+    new_name = request.json.get('name')
+    if new_name is None:
+        return jsonify(message='Name is required'), 400
+
+    event.name = new_name
+    db.session.commit()
+
+    return jsonify(event=event.to_dict())
 
 @app.route('/api/events/<int:event_id>', methods=['DELETE'])
 def delete_event(event_id):
-    # Implement logic to delete a specific event by its ID from the database
-    # Example: event = Event.query.get(event_id)
-    # if event:
-    #     db.session.delete(event)
-    #     db.session.commit()
-    return jsonify(message='Event deleted successfully')
+    event = Event.query.get(event_id)
+    if event:
+        # Delete associated vendors
+        for vendor in event.vendors:
+            db.session.delete(vendor)
+        # Delete event
+        db.session.delete(event)
+        db.session.commit()
+        return jsonify(message='Event deleted')
+    else:
+        return jsonify(message='Event not found'), 404
 
 @app.route('/api/events/<int:event_id>/vendors', methods=['POST'])
 def add_vendor(event_id):
@@ -207,6 +215,7 @@ def add_guest(event_id):
         return jsonify(guest=guest.to_dict()), 201
     else:
         return jsonify(message='Event not found'), 404
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

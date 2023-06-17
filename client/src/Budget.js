@@ -15,7 +15,12 @@ const Budget = () => {
 
   useEffect(() => {
     fetchBudget();
+    retrieveStoredCosts();
   }, []);
+
+  useEffect(() => {
+    storeCosts();
+  }, [costs]);
 
   const fetchBudget = async () => {
     try {
@@ -23,12 +28,23 @@ const Budget = () => {
         axios.get(`/api/events/${id}/budget/actual`), // Fetch actual budget
         axios.get(`/api/events/${id}/budget/target`), // Fetch target budget
       ]);
-  
+
       setBudget(actualResponse.data.budget);
       setTargetBudget(targetResponse.data.target_budget);
       setRemainingBudget(targetResponse.data.target_budget - actualResponse.data.budget);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const storeCosts = () => {
+    sessionStorage.setItem('weddingDetailsCosts', JSON.stringify(costs));
+  };
+
+  const retrieveStoredCosts = () => {
+    const storedCosts = sessionStorage.getItem('weddingDetailsCosts');
+    if (storedCosts) {
+      setCosts(JSON.parse(storedCosts));
     }
   };
 
@@ -50,7 +66,7 @@ const Budget = () => {
 
   const calculateTotalBudget = () => {
     return costs.reduce((sum, cost) => sum + cost.amount, 0);
-  };  
+  };
 
   const handleSaveTargetBudget = async () => {
     try {
@@ -64,7 +80,7 @@ const Budget = () => {
   return (
     <div>
       <h2>Budget</h2>
-      <p>Target Budget: ${budget}</p>
+      <p>Target Budget: ${targetBudget}</p>
       <div>
         <h3>Set Target Budget</h3>
         <input
@@ -73,7 +89,7 @@ const Budget = () => {
           value={targetBudget}
           onChange={(e) => setTargetBudget(parseFloat(e.target.value))}
         />
-        <button onClick={handleSaveTargetBudget}>Save Target Budget</button>
+        <button className="add-event-button" onClick={handleSaveTargetBudget}>Save Target Budget</button>
       </div>
       <div>
         <h3>Add Cost</h3>
@@ -83,13 +99,13 @@ const Budget = () => {
           value={costName}
           onChange={(e) => setCostName(e.target.value)}
         />
-        <input
+                <input
           type="number"
           placeholder="Cost Amount"
           value={costAmount}
           onChange={(e) => setCostAmount(e.target.value)}
         />
-        <button onClick={handleAddCost}>Add Cost</button>
+        <button className="add-event-button" onClick={handleAddCost}>Add Cost</button>
       </div>
       <div>
         <h3>Costs</h3>
@@ -109,12 +125,15 @@ const Budget = () => {
             ))}
           </tbody>
         </table>
-        </div>
+      </div>
       <div>
         <h3>Total Budget: ${totalBudget}</h3>
         <h3>Remaining Budget: ${remainingBudget}</h3>
         <VictoryPie
-          data={costs}
+          data={[
+            ...costs,
+            { name: 'Remaining Budget', amount: remainingBudget },
+          ]}
           x="name"
           y="amount"
           colorScale="qualitative"
@@ -125,3 +144,4 @@ const Budget = () => {
 };
 
 export default Budget;
+

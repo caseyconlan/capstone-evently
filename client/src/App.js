@@ -7,6 +7,7 @@ import VendorList from './VendorList';
 import GuestList from './GuestList';
 import EventList from './EventList';
 import EventDetails from './EventDetails';  // make sure to import the new component
+import './App.css';
 
 const App = () => {
   return (
@@ -15,7 +16,6 @@ const App = () => {
         {/* Add your header or navigation component here */}
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/budget" component={Budget} />
           <Route path="/project-plan" component={ProjectPlan} />
           <Route path="/list-of-vendors" component={VendorList} />
           <Route path="/guest-list" component={GuestList} />
