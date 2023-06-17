@@ -37,16 +37,16 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
   };
 
   return (
-    <div>
+    <div className="add-vendor-container">
       <h3>Add Vendor</h3>
       <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input type="text" name="name" value={vendorData.name} onChange={handleInputChange} />
+          <input className="vendor-input" type="text" name="name" value={vendorData.name} onChange={handleInputChange} />
         </label>
         <label>
           Product/Service:
-          <input
+          <input className="vendor-input"
             type="text"
             name="product_service"
             value={vendorData.product_service}
@@ -55,11 +55,24 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
         </label>
         <label>
           Category:
-          <input type="text" name="category" value={vendorData.category} onChange={handleInputChange} />
+          <select className="vendor-input" name="category" value={vendorData.category} onChange={handleInputChange}>
+            <option value="">Select a category</option>
+            <option value="Attire">Attire</option>
+            <option value="Decorations">Decorations</option>
+            <option value="Favors">Favors</option>
+            <option value="Food">Food</option>
+            <option value="Flowers">Flowers</option>
+            <option value="Music">Music</option>
+            <option value="Photography/Videography">Photography/Videography</option>
+            <option value="Stationary">Stationary</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Venue">Venue</option>
+            <option value="Other">Other</option>
+          </select>
         </label>
         <label>
           Contact Person:
-          <input
+          <input className="vendor-input"
             type="text"
             name="contact_person"
             value={vendorData.contact_person}
@@ -68,17 +81,17 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
         </label>
         <label>
           Phone:
-          <input type="text" name="phone" value={vendorData.phone} onChange={handleInputChange} />
+          <input className="vendor-input" type="text" name="phone" value={vendorData.phone} onChange={handleInputChange} />
         </label>
         <label>
           Email:
-          <input type="text" name="email" value={vendorData.email} onChange={handleInputChange} />
+          <input className="vendor-input" type="text" name="email" value={vendorData.email} onChange={handleInputChange} />
         </label>
         <label>
           Address:
-          <input type="text" name="address" value={vendorData.address} onChange={handleInputChange} />
+          <input className="vendor-input" type="text" name="address" value={vendorData.address} onChange={handleInputChange} />
         </label>
-        <button className="add-event-button" type="submit">Add Vendor</button>
+        <button className="add-vendor-button" type="submit">Add Vendor</button>
       </form>
     </div>
   );

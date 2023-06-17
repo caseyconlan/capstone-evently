@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import {EventContext} from './EventContext.js';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const EventList = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useContext(EventContext);
   const [eventName, setEventName] = useState('');
   const [editEventId, setEditEventId] = useState(null);
   const [editedEventName, setEditedEventName] = useState('');

@@ -88,7 +88,8 @@ class Vendor(db.Model):
             'contact_person': self.contact_person,
             'phone': self.phone,
             'email': self.email,
-            'address': self.address
+            'address': self.address,
+            'events': [event.to_dict() for event in self.events]  # Serialize the associated events objects
         }
 
 # Association table for the many-to-many relationship between events and vendors

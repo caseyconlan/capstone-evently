@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import {EventContext} from './EventContext.js';
 import axios from 'axios';
 import AddVendorForm from './AddVendorForm';
 import './App.css';
 
 const VendorList = ({ eventId }) => {
+  const {events, setEvents} = useContext(EventContext);
   const [vendors, setVendors] = useState([]);
 
   useEffect(() => {
@@ -37,12 +39,11 @@ const VendorList = ({ eventId }) => {
   };
 
   return (
-    <div className="vendor-list"> {/* Apply the 'vendor-list' class */}
-      <h2>Vendor List</h2>
+    <div className="vendor-list">
       <AddVendorForm eventId={eventId} onVendorAdded={handleVendorAdded} />
       {vendors.map((vendor) => (
-        <div className="vendor-tile" key={vendor.id}> {/* Apply the 'vendor-tile' class */}
-          <h3 className="vendor-name">{vendor.name}</h3> {/* Apply the 'vendor-name' class */}
+        <div className="vendor-tile" key={vendor.id}>
+          <h3 className="vendor-name">{vendor.name}</h3>
           <p>Product/Service: {vendor.product_service}</p>
           <p>Category: {vendor.category}</p>
           <p>Contact Person: {vendor.contact_person}</p>

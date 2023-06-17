@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { EventContext } from './EventContext.js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { VictoryPie } from 'victory';
 
 const Budget = () => {
+  const { events, setEvents } = useContext(EventContext);
   const { id } = useParams();
   const [budget, setBudget] = useState(0);
   const [costName, setCostName] = useState('');
   const [costAmount, setCostAmount] = useState('');
+  const [costCategory, setCostCategory] = useState('');
+  const [costVendor, setCostVendor] = useState('');
   const [costs, setCosts] = useState([]);
   const [totalBudget, setTotalBudget] = useState(0);
   const [targetBudget, setTargetBudget] = useState(0);
@@ -38,21 +42,23 @@ const Budget = () => {
   };
 
   const storeCosts = () => {
-    sessionStorage.setItem('weddingDetailsCosts', JSON.stringify(costs));
-  };
+    sessionStorage.setItem(`weddingDetailsCosts-${id}`, JSON.stringify(costs));
+  };  
 
   const retrieveStoredCosts = () => {
-    const storedCosts = sessionStorage.getItem('weddingDetailsCosts');
+    const storedCosts = sessionStorage.getItem(`weddingDetailsCosts-${id}`);
     if (storedCosts) {
       setCosts(JSON.parse(storedCosts));
     }
-  };
+  };  
 
   const handleAddCost = () => {
     const newCost = {
       id: Date.now(),
       name: costName,
       amount: parseFloat(costAmount),
+      category: costCategory,
+      vendor: costVendor,
     };
 
     const updatedCosts = [...costs, newCost];
@@ -60,6 +66,8 @@ const Budget = () => {
 
     setCostName('');
     setCostAmount('');
+    setCostCategory('');
+    setCostVendor('');
 
     setTotalBudget(calculateTotalBudget());
   };
@@ -89,7 +97,9 @@ const Budget = () => {
           value={targetBudget}
           onChange={(e) => setTargetBudget(parseFloat(e.target.value))}
         />
-        <button className="add-event-button" onClick={handleSaveTargetBudget}>Save Target Budget</button>
+        <button className="add-event-button" onClick={handleSaveTargetBudget}>
+          Save Target Budget
+        </button>
       </div>
       <div>
         <h3>Add Cost</h3>
@@ -99,13 +109,38 @@ const Budget = () => {
           value={costName}
           onChange={(e) => setCostName(e.target.value)}
         />
-                <input
+        <input
           type="number"
           placeholder="Cost Amount"
           value={costAmount}
           onChange={(e) => setCostAmount(e.target.value)}
         />
-        <button className="add-event-button" onClick={handleAddCost}>Add Cost</button>
+        <select
+          value={costCategory}
+          onChange={(e) => setCostCategory(e.target.value)}
+        >
+          <option value="">Select a category</option>
+          <option value="Attire">Attire</option>
+          <option value="Decorations">Decorations</option>
+          <option value="Favors">Favors</option>
+          <option value="Food">Food</option>
+          <option value="Flowers">Flowers</option>
+          <option value="Music">Music</option>
+          <option value="Photography/Videography">Photography/Videography</option>
+          <option value="Stationary">Stationary</option>
+          <option value="Transportation">Transportation</option>
+          <option value="Venue">Venue</option>
+          <option value="Other">Other</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Vendor"
+          value={costVendor}
+          onChange={(e) => setCostVendor(e.target.value)}
+        />
+        <button className="add-event-button" onClick={handleAddCost}>
+          Add Cost
+        </button>
       </div>
       <div>
         <h3>Costs</h3>
@@ -114,6 +149,8 @@ const Budget = () => {
             <tr>
               <th>Name</th>
               <th>Amount</th>
+              <th>Category</th>
+              <th>Vendor</th>
             </tr>
           </thead>
           <tbody>
@@ -121,6 +158,8 @@ const Budget = () => {
               <tr key={cost.id}>
                 <td>{cost.name}</td>
                 <td>${cost.amount}</td>
+                <td>{cost.category}</td>
+                <td>{cost.vendor}</td>
               </tr>
             ))}
           </tbody>
@@ -132,16 +171,15 @@ const Budget = () => {
         <VictoryPie
           data={[
             ...costs,
-            { name: 'Remaining Budget', amount: remainingBudget },
+            { category: 'Remaining Budget', amount: remainingBudget },
           ]}
-          x="name"
+          x="category"
           y="amount"
           colorScale="qualitative"
         />
       </div>
     </div>
   );
-};
+};  
 
 export default Budget;
-

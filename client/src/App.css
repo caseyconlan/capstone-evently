@@ -1,4 +1,11 @@
 /* App.css */
+:root {
+    --primary-color: #501F3A;
+    --secondary-color: #CB2D6F;
+    --accent-color: #CCCCCC;
+    --success-color: #14A098;
+    --dark-color: #0F292F;
+  }
 
 body {
     font-family: Arial, sans-serif;
@@ -60,7 +67,7 @@ body {
   }
   
   .add-guest-section h3 {
-    color: #333;
+    color: #0F292F;
     font-size: 20px;
   }
   
@@ -89,45 +96,52 @@ body {
     border-radius: 4px;
     cursor: pointer;
   }
+
+  .add-guest-container {
+    max-width: 1300px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #CCCCCC;
+    border: 5px solid #501F3A;
+    border-radius: 4px;
+    text-align: center;
+  }
   
   .guests-section {
     margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
   }
   
   .guests-section h3 {
-    color: #333;
+    color: #0F292F;
     font-size: 20px;
+    justify-content: center;
+    align-items: center;
   }
   
   .guest-table {
     width: 100%;
     border-collapse: collapse;
+    justify-content: center;
+    align-items: center;
   }
   
   .guest-table th,
   .guest-table td {
     padding: 8px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #501F3A;
     text-align: left;
+    justify-content: center;
+    align-items: center;
   }
-  
-  .guest-table th {
-    background-color: #f7f7f7;
-    color: #333;
-  }
-  
-  .guest-table td {
-    color: #666;
-  }
-  
-  /* Home.css */
 
 .home-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
+    background-color: #CCCCCC;
+    border: 5px solid #501F3A;
     border-radius: 4px;
     text-align: center;
   }
@@ -137,8 +151,6 @@ body {
     margin-bottom: 20px;
   }
   
-/* EventList.css */
-
 .event-list {
     display: flex;
     flex-wrap: wrap;
@@ -146,14 +158,15 @@ body {
   }
   
   .event-tile {
-    background-color: #355070;
+    background-color: #14A098;
     padding: 20px;
     border-radius: 8px;
   }
   
   .event-name {
-    color: #eaac8b;
+    color: #501F3A;
     font-weight: bold;
+    font-size: 22px;
   }
   
   .add-event {
@@ -166,29 +179,34 @@ body {
   .event-input {
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #6d597a;
+    border: 1px solid #0F292F;
   }
   
   .add-event-button {
     padding: 8px 16px;
-    background-color: #e56b6f;
-    color: white;
+    background-color: #CB2F6F;
+    color: #CCCCCC;
     border: none;
     border-radius: 4px;
     cursor: pointer;
   }
   
   .add-event-button:hover {
-    background-color: #b56576;
+    background-color: #501F3A;
   }
 
   h1 {
-    color: #e56b6f;
+    color: #0F292F;
 
   }
 
   h2 {
-    color: #e56b6f;
+    color: #0F292F;
+  }
+
+  h3 {
+    color: #0F292F;
+    size: 24px;
   }
 
   /* VendorList.css */
@@ -199,14 +217,13 @@ body {
   }
   
   .vendor-tile {
-    background-color: #eaac8b;
+    background-color: #CCCCCC;
     padding: 20px;
     border-radius: 8px;
-    color: #355070;
   }
   
   .vendor-name {
-    color: #355070;
+    color: #14A098;
     font-weight: bold;
   }
   
@@ -220,20 +237,9 @@ body {
   .vendor-input {
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #b56576;
-  }
-  
-  .add-vendor-button {
-    padding: 8px 16px;
-    background-color: #e56b6f;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .add-vendor-button:hover {
-    background-color: #355070;
+    border: 1px solid #CB2D6F;
+    margin: 10px;
+    margin-left: 5px;
   }
   
   .guest-list {
@@ -241,17 +247,7 @@ body {
     flex-wrap: wrap;
     gap: 20px;
   }
-  
-  .guest-tile {
-    background-color: #355070;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .guest-name {
-    color: #e56b6f;
-    font-weight: bold;
-  }
+
   
   .add-guest {
     display: flex;
@@ -268,53 +264,119 @@ body {
   
   .add-guest-button {
     padding: 8px 16px;
-    background-color: #b56576;
-    color: white;
+    background-color: #CB2F6F;
+    color: #cccccc;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-left: 2px;
   }
   
   .add-guest-button:hover {
-    background-color: #eaac8b;
+    background-color: #501F3A;
   }
   .add-vendor-form {
-    background-color: #355070;
-    color: #eaac8b;
     padding: 20px;
-    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+    background-color: var(--secondary-color);
+    color: white;
   }
   
   .add-vendor-form h3 {
-    color: #eaac8b;
-    margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    color: #0F292F;
+    size: 18px;
   }
   
-  .add-vendor-form form label {
+  .add-vendor-form label {
     display: block;
     margin-bottom: 10px;
-    color: #eaac8b;
   }
   
-  .add-vendor-form form input {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #6d597a;
+  .add-vendor-form input,
+  .add-vendor-form select {
     width: 100%;
-    margin-bottom: 10px;
+    padding: 5px;
+    border: none;
+    background-color: var(--accent-color);
+    color: var(--dark-color);
   }
   
-  .add-vendor-form form .add-vendor-button {
-    padding: 8px 16px;
-    background-color: #e56b6f;
+  .add-vendor-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--primary-color);
     color: white;
+    cursor: pointer;
+  }
+  
+  .add-vendor-form button:hover {
+    background-color: var(--success-color);
+  }  
+
+  .add-vendor-button {
+    padding: 8px 16px;
+    background-color: #CB2F6F;
+    color: #cccccc;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 2px;
+  }
+
+  .add-vendor-button:hover {
+    background-color: #501F3A;
+  }
+  
+  .button-primary {
+    padding: 8px 16px;
+    background-color: #CB2F6F;
+    color: #CCCCCC;
     border: none;
     border-radius: 4px;
     cursor: pointer;
   }
-  
-  .add-vendor-form form .add-vendor-button:hover {
-    background-color: #b56576;
+
+  .button-primary:hover {
+    background-color: #501F3A;
   }
-  
+
+  .edit-event-button {
+    padding: 8px 16px;
+    background-color: #CB2F6F;
+    color: #CCCCCC;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 2px;
+    font-size:16px;
+  }
+
+  .edit-event-button:hover {
+    background-color: #501F3A;
+  }
+
+  .delete-event-button {
+    padding: 8px 16px;
+    background-color: #CB2F6F;
+    color: #CCCCCC;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 2px;
+    font-size:16px;
+  }
+
+  .delete-event-button:hover {
+    background-color: #501F3A;
+  }
+
+  .add-vendor-container {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #CCCCCC;
+    border: 5px solid #501F3A;
+    border-radius: 4px;
+    text-align: center;
+  }

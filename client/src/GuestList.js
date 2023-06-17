@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import {EventContext} from './EventContext.js';
 import axios from 'axios';
 import './App.css';
 
 const GuestList = ({ eventId }) => {
+  const {events, setEvents} = useContext(EventContext);
   const [guests, setGuests] = useState([]);
   const [guestTitle, setGuestTitle] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -64,25 +66,24 @@ const GuestList = ({ eventId }) => {
 
   return (
     <div className="guest-list">
-      <h2>Guest List</h2>
-      <div>
+      <div className="add-guest-container">
         <h3>Add Guest</h3>
         <label>Title:</label>
-        <input type="text" value={guestTitle} onChange={(e) => setGuestTitle(e.target.value)} />
+        <input className="vendor-input" type="text" value={guestTitle} onChange={(e) => setGuestTitle(e.target.value)} />
         <label>First Name:</label>
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <input className="vendor-input" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
         <label>Last Name:</label>
-        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+        <input className="vendor-input" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
         <label>Address:</label>
-        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+        <input className="vendor-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
         <label>City:</label>
-        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+        <input className="vendor-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} />
         <label>State:</label>
-        <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
+        <input className="vendor-input" type="text" value={state} onChange={(e) => setState(e.target.value)} />
         <label>Zip:</label>
-        <input type="text" value={zip} onChange={(e) => setZip(e.target.value)} />
+        <input className="vendor-input" type="text" value={zip} onChange={(e) => setZip(e.target.value)} />
         <label>RSVP:</label>
-        <input type="text" value={rsvp} onChange={(e) => setRsvp(e.target.value)} />
+        <input className="vendor-input" type="text" value={rsvp} onChange={(e) => setRsvp(e.target.value)} />
         <button className="add-guest-button" onClick={handleAddGuest}>Add Guest</button>
       </div>
       <div>
