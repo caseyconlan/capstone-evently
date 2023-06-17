@@ -43,14 +43,15 @@ const Budget = () => {
 
   const storeCosts = () => {
     sessionStorage.setItem(`weddingDetailsCosts-${id}`, JSON.stringify(costs));
-  };  
+  };
 
   const retrieveStoredCosts = () => {
     const storedCosts = sessionStorage.getItem(`weddingDetailsCosts-${id}`);
     if (storedCosts) {
       setCosts(JSON.parse(storedCosts));
+      setTotalBudget(calculateTotalBudget(JSON.parse(storedCosts)));
     }
-  };  
+  };
 
   const handleAddCost = () => {
     const newCost = {
@@ -69,10 +70,10 @@ const Budget = () => {
     setCostCategory('');
     setCostVendor('');
 
-    setTotalBudget(calculateTotalBudget());
+    setTotalBudget(calculateTotalBudget(updatedCosts));
   };
 
-  const calculateTotalBudget = () => {
+  const calculateTotalBudget = (costs) => {
     return costs.reduce((sum, cost) => sum + cost.amount, 0);
   };
 
@@ -175,7 +176,7 @@ const Budget = () => {
           ]}
           x="category"
           y="amount"
-          colorScale="qualitative"
+          colorScale={["magenta", "navy", "beige", "teal", "midnight", "purple", "cyan", "lilac", "pink", "blue", "white", "gray"]}
         />
       </div>
     </div>

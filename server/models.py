@@ -1,5 +1,6 @@
 from sqlalchemy_serializer import SerializerMixin
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -90,6 +91,18 @@ class Vendor(db.Model):
             'phone': self.phone,
             'email': self.email,
             'address': self.address
+        }
+
+class ArchivedEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    date_archived = db.Column(db.DateTime, nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'date_archived': self.date_archived.strftime('%Y-%m-%d %H:%M:%S')
         }
 
 # Association table for the many-to-many relationship between events and vendors

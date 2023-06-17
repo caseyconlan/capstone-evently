@@ -6,11 +6,13 @@ import './App.css';
 
 const Home = () => {
   return (
-    <div className="route-links-container"> {/* Separate container for the route links */}
+    <div className="route-links-container">
       <h2>Navigation</h2>
       <div className="route-links">
         <Link to="/vendors">Vendor List</Link>
-        {/* Add any other route links you want to display */}
+        <Link to="/datadashboard">Data Dashboard</Link>
+        <Link to="/resources">Resources</Link> 
+        <Link to="/archived-events">Archived Events</Link>
       </div>
       <div className="home-container">
         <h1>Welcome to the Event Planner App!</h1>

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {EventContext} from './EventContext.js';
+import ArchivedEvents from './ArchivedEvents';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -8,10 +9,33 @@ const EventList = () => {
   const [eventName, setEventName] = useState('');
   const [editEventId, setEditEventId] = useState(null);
   const [editedEventName, setEditedEventName] = useState('');
+  const [archivedEvents, setArchivedEvents] = useState([]);
+
+  const handleArchiveEvent = (eventId) => {
+    const eventToArchive = events.find((event) => event.id === eventId);
+    if (eventToArchive) {
+      setEvents(events.filter((event) => event.id !== eventId));
+      setArchivedEvents((prevArchivedEvents) => [...prevArchivedEvents, eventToArchive]);
+    }
+  }; 
 
   useEffect(() => {
     fetchEvents();
+    fetchArchivedEvents();
   }, []);
+
+  const fetchArchivedEvents = async () => {
+    try {
+      const response = await axios.get('/api/events/archived');
+      if (Array.isArray(response.data.events)) {
+        setArchivedEvents(response.data.events);
+      } else {
+        console.log('Error: server response is not an array');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };  
 
   const fetchEvents = async () => {
     try {
@@ -67,41 +91,46 @@ const EventList = () => {
   };
 
   return (
-    <div className="event-list">
-      {events.map((event) => (
-        <div key={event.id} className="event-tile">
-          {editEventId === event.id ? (
-            <div className="edit-event">
-              <input
-                className="event-input"
-                type="text"
-                value={editedEventName}
-                onChange={(e) => setEditedEventName(e.target.value)}
-              />
-              <button className="save-event-button" onClick={() => handleSaveEdit(event.id)}>
-                Save
-              </button>
-              <button className="cancel-event-button" onClick={handleCancelEdit}>
-                Cancel
-              </button>
-            </div>
-          ) : (
-            <>
-              <Link to={`/events/${event.id}`}>
-                <span className="event-name">{event.name}</span>
-              </Link>
-              <div className="event-actions">
-                <button className="edit-event-button" onClick={() => handleEditEvent(event.id, event.name)}>
-                  Edit Event Name
+    <div>
+      <div className="event-list">
+        {events.map((event) => (
+          <div key={event.id} className="event-tile">
+            {editEventId === event.id ? (
+              <div className="edit-event">
+                <input
+                  className="event-input"
+                  type="text"
+                  value={editedEventName}
+                  onChange={(e) => setEditedEventName(e.target.value)}
+                />
+                <button className="save-event-button" onClick={() => handleSaveEdit(event.id)}>
+                  Save
                 </button>
-                <button className="delete-event-button" onClick={() => handleDeleteEvent(event.id)}>
-                  Delete Event
+                <button className="cancel-event-button" onClick={handleCancelEdit}>
+                  Cancel
                 </button>
               </div>
-            </>
-          )}
-        </div>
-      ))}
+            ) : (
+              <>
+                <Link to={`/events/${event.id}`}>
+                  <span className="event-name">{event.name}</span>
+                </Link>
+                <div className="event-actions">
+                  <button className="edit-event-button" onClick={() => handleEditEvent(event.id, event.name)}>
+                    Edit Event Name
+                  </button>
+                  <button className="delete-event-button" onClick={() => handleDeleteEvent(event.id)}>
+                    Delete Event
+                  </button>
+                  <button className="archive-event-button" onClick={() => handleArchiveEvent(event.id)}>
+                    Archive Event
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
       <div className="add-event">
         <input
           className="event-input"
@@ -113,7 +142,7 @@ const EventList = () => {
         </button>
       </div>
     </div>
-  );
+  );  
 };
 
 export default EventList;

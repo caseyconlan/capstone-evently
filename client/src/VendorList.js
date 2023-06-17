@@ -48,12 +48,12 @@ const VendorList = ({ eventId }) => {
       {vendors.map((vendor) => (
         <div className="vendor-tile" key={vendor.id}>
           <h3 className="vendor-name">{vendor.name}</h3>
-          <p>Product/Service: {vendor.product_service}</p>
-          <p>Category: {vendor.category}</p>
-          <p>Contact Person: {vendor.contact_person}</p>
-          <p>Phone: {vendor.phone}</p>
-          <p>Email: {vendor.email}</p>
-          <p>Address: {vendor.address}</p>
+          <p className="vendor-info">Product/Service: {vendor.product_service}</p>
+          <p className="vendor-info">Category: {vendor.category}</p>
+          <p className="vendor-info">Contact Person: {vendor.contact_person}</p>
+          <p className="vendor-info">Phone: {vendor.phone}</p>
+          <p className="vendor-info">Email: {vendor.email}</p>
+          <p className="vendor-info">Address: {vendor.address}</p>
         </div>
       ))}
     </div>

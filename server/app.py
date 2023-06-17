@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request
-from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor
+from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor, ArchivedEvent
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from datetime import datetime
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -76,13 +77,18 @@ def update_event(event_id):
 def delete_event(event_id):
     event = Event.query.get(event_id)
     if event:
+        # Move event to archived events table
+        archived_event = ArchivedEvent(name=event.name, date_archived=datetime.now())
+        db.session.add(archived_event)
+
         # Delete associated vendors
         for vendor in event.vendors:
             db.session.delete(vendor)
+
         # Delete event
         db.session.delete(event)
         db.session.commit()
-        return jsonify(message='Event deleted')
+        return jsonify(message='Event archived')
     else:
         return jsonify(message='Event not found'), 404
 
@@ -127,6 +133,31 @@ def update_target_budget(event_id):
 
     # Return a response indicating success
     return jsonify(message='Target budget updated successfully')
+
+# app.py
+@app.route('/api/events/<int:event_id>/date', methods=['PUT'])
+def update_event_date(event_id):
+    event = Event.query.get(event_id)
+    if event is None:
+        return jsonify(message='Event not found'), 404
+
+    new_date = request.json.get('date')
+    if new_date is None:
+        return jsonify(message='Date is required'), 400
+
+    event.date = new_date
+    db.session.commit()
+
+    return jsonify(event=event.to_dict())
+
+@app.route('/api/events/<int:event_id>/date', methods=['GET'])
+def get_event_date(event_id):
+    event = Event.query.get(event_id)
+    if event is None:
+        return jsonify(message='Event not found'), 404
+
+    return jsonify(date=event.date)
+
 
 @app.route('/api/events/<int:event_id>/budget', methods=['GET'])
 def get_budget(event_id):
@@ -226,6 +257,11 @@ def add_guest(event_id):
     else:
         return jsonify(message='Event not found'), 404
 
+@app.route('/api/events/archived', methods=['GET'])
+def get_archived_events():
+    archived_events = ArchivedEvent.query.all()
+    archived_event_list = [event.to_dict() for event in archived_events]
+    return jsonify(events=archived_event_list)
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
