@@ -12,6 +12,7 @@ class Event(db.Model, SerializerMixin):
     type = db.Column(db.String(100), nullable=True)
     budget_amount = db.Column(db.Float, default=0.0)
     target_budget = db.Column(db.Float, default=0.0)  # Add target_budget column
+    archived = db.Column(db.Boolean, default=False)
 
     # Establish the many-to-many relationship with vendors
     vendors = db.relationship('Vendor', secondary='event_vendor', backref='events')

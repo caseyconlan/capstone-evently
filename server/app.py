@@ -50,12 +50,12 @@ def create_event():
 
 @app.route('/api/events/<int:event_id>', methods=['GET'])
 def get_event(event_id):
-    # Implement logic to fetch a specific event by its ID from the database
     event = Event.query.get(event_id)
     if event:
         return jsonify(event=event.to_dict())
     else:
-        return jsonify(message='Event not found')
+        return jsonify(message='Event not found'), 404
+
 
 @app.route('/api/events/<int:event_id>', methods=['PUT'])
 def update_event(event_id):
