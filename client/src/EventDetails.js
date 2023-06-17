@@ -56,7 +56,7 @@ const EventDetails = () => {
     } catch (error) {
       console.error(error);
     }
-  };  
+  };
 
   const handleCancelEdit = () => {
     setEditEventId(null);
@@ -102,8 +102,8 @@ const EventDetails = () => {
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
             />
-            <button classname="button-primary" onClick={() => handleSaveEdit(event.id)}>Save</button>
-            <button classname="button-primary" onClick={handleCancelEdit}>Cancel</button>
+            <button className="button-primary" onClick={() => handleSaveEdit(event.id)}>Save</button>
+            <button className="button-primary" onClick={handleCancelEdit}>Cancel</button>
           </div>
         ) : (
           <div>
@@ -118,6 +118,7 @@ const EventDetails = () => {
       </div>
       {/* Render other event details */}
       <Budget eventId={id} />
+      <VendorList eventId={id} />
       <GuestList eventId={id} />
     </div>
   );

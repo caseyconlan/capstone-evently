@@ -1,5 +1,6 @@
 import React from 'react';
 import EventList from './EventList';
+import VendorList from './VendorList';
 import { Link } from 'react-router-dom';
 import './App.css';
 

@@ -89,24 +89,34 @@ def delete_event(event_id):
 @app.route('/api/events/<int:event_id>/vendors', methods=['POST'])
 def add_vendor(event_id):
     data = request.get_json()
-    vendor = Vendor(
-        name=data['name'],
-        product_service=data['product_service'],
-        category=data['category'],
-        contact_person=data['contact_person'],
-        phone=data['phone'],
-        email=data['email'],
-        address=data['address']
-    )
     event = Event.query.get(event_id)
     if event:
-        event.vendors.append(vendor)
+        vendor = Vendor(
+            name=data['name'],
+            product_service=data['product_service'],
+            category=data['category'],
+            contact_person=data['contact_person'],
+            phone=data['phone'],
+            email=data['email'],
+            address=data['address']
+        )
+        event.vendors.append(vendor)  # Associate the vendor with the event
         db.session.add(vendor)
         db.session.commit()
         return jsonify(vendor=vendor.to_dict()), 201
     else:
         return jsonify(message='Event not found'), 404
-    
+
+@app.route('/api/events/<int:event_id>/vendors', methods=['GET'])
+def get_event_vendors(event_id):
+    event = Event.query.get(event_id)
+    if event:
+        vendors = event.vendors
+        vendor_list = [vendor.to_dict() for vendor in vendors]
+        return jsonify(vendors=vendor_list)
+    else:
+        return jsonify(message='Event not found'), 404
+
 @app.route('/api/events/<int:event_id>/budget', methods=['PUT'])
 def update_target_budget(event_id):
     # Retrieve the target budget from the request body

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {EventContext} from './EventContext.js';
-import axios from 'axios';
 import AddVendorForm from './AddVendorForm';
+import axios from 'axios';
 import './App.css';
 
 const VendorList = ({ eventId }) => {
@@ -21,7 +21,11 @@ const VendorList = ({ eventId }) => {
     sessionStorage.setItem('vendors', JSON.stringify(vendors));
   }, [vendors]);
 
-  const fetchVendors = async () => {
+  useEffect(() => {
+    fetchVendors(eventId);
+  }, [eventId]);  
+
+  const fetchVendors = async (eventId) => {
     try {
       const response = await axios.get(`/api/events/${eventId}/vendors`);
       if (Array.isArray(response.data.vendors)) {
@@ -33,7 +37,7 @@ const VendorList = ({ eventId }) => {
       console.error(error);
     }
   };
-
+  
   const handleVendorAdded = (vendor) => {
     setVendors([...vendors, vendor]);
   };
