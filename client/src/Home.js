@@ -10,8 +10,8 @@ const Home = () => {
       <h2>Navigation</h2>
       <div className="route-links">
         <Link to="/vendors">Vendor List</Link>
-        <Link to="/datadashboard">Data Dashboard</Link>
-        <Link to="/resources">Resources</Link> 
+        <Link to="/bookkeeping">Bookkeeping</Link>
+        <Link to="/todolist">To Do List</Link> 
         <Link to="/archived-events">Archived Events</Link>
       </div>
       <div className="home-container">

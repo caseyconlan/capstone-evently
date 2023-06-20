@@ -87,6 +87,7 @@ const GuestList = ({ eventId }) => {
         <button className="add-guest-button" onClick={handleAddGuest}>Add Guest</button>
       </div>
       <div>
+        <div className="Guest-List-Container">
         <h3>Guests</h3>
         <table className="guest-table">
           <thead>
@@ -116,6 +117,7 @@ const GuestList = ({ eventId }) => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

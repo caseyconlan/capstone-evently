@@ -4,8 +4,8 @@ import Home from './Home';
 import VendorList from './VendorList';
 import GuestList from './GuestList';
 import EventDetails from './EventDetails';
-import DataDashboard from './DataDashboard';
-import Resources from './Resources';
+import Bookkeeping from './Bookkeeping';
+import ToDoList from './ToDoList';
 import ArchivedEvents from './ArchivedEvents';
 import { EventProvider } from './EventContext'; // Import the EventProvider component
 import './App.css';
@@ -21,8 +21,8 @@ const App = () => {
             <Route path="/vendors" component={VendorList} />
             <Route path="/guest-list" component={GuestList} />
             <Route path="/events/:id" component={EventDetails} />
-            <Route path="/datadashboard" component={DataDashboard} />
-            <Route path="/resources" component={Resources} />
+            <Route path="/bookkeeping" component={Bookkeeping} />
+            <Route path="/todolist" component={ToDoList} />
             <Route path="/archived-events" component={ArchivedEvents} />
           </Switch>
         </div>

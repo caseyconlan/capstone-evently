@@ -112,6 +112,16 @@ def add_vendor(event_id):
         return jsonify(vendor=vendor.to_dict()), 201
     else:
         return jsonify(message='Event not found'), 404
+    
+@app.route('/api/vendors/<int:vendor_id>', methods=['DELETE'])
+def delete_vendor(vendor_id):
+    vendor = Vendor.query.get(vendor_id)
+    if vendor:
+        db.session.delete(vendor)
+        db.session.commit()
+        return jsonify(message='Vendor deleted'), 200
+    else:
+        return jsonify(message='Vendor not found'), 404
 
 @app.route('/api/events/<int:event_id>/vendors', methods=['GET'])
 def get_event_vendors(event_id):
@@ -262,6 +272,7 @@ def get_archived_events():
     archived_events = ArchivedEvent.query.all()
     archived_event_list = [event.to_dict() for event in archived_events]
     return jsonify(events=archived_event_list)
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

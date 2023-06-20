@@ -420,3 +420,19 @@ body {
     border-radius: 4px;
     text-align: center;
   }
+
+  .Guest-List-Container{
+    max-width: flex;
+    margin: 50px auto;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding: 20px;
+    background-color: #CCCCCC;
+    border: 5px solid #501F3A;
+    border-radius: 4px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
