@@ -77,17 +77,23 @@ def update_event(event_id):
 def delete_event(event_id):
     event = Event.query.get(event_id)
     if event:
-        # Move event to archived events table
         archived_event = ArchivedEvent(name=event.name, date_archived=datetime.now())
         db.session.add(archived_event)
+        
+        event.vendors.clear()
 
-        # Delete associated vendors
-        for vendor in event.vendors:
-            db.session.delete(vendor)
+        for item in event.budget_items:
+            item.archived = True
 
-        # Delete event
+        for item in event.project_items:
+            item.archived = True
+
+        for guest in event.guests:
+            guest.archived = True
+
         db.session.delete(event)
         db.session.commit()
+        
         return jsonify(message='Event archived')
     else:
         return jsonify(message='Event not found'), 404
@@ -137,23 +143,27 @@ def get_event_vendors(event_id):
 def update_target_budget(event_id):
     # Retrieve the target budget from the request body
     target_budget = request.json.get('target_budget')
+    event = Event.query.get(event_id)
+    if event:
+        event.target_budget = target_budget
+        db.session.commit()
+        # Return a response indicating success
+        return jsonify(message='Target budget updated successfully'), 200
+    else:
+        return jsonify(message='Event not found'), 404
 
-    # Update the target budget for the event with the given ID
-    # (code to update the target budget in the database)
-
-    # Return a response indicating success
-    return jsonify(message='Target budget updated successfully')
-
-# app.py
 @app.route('/api/events/<int:event_id>/date', methods=['PUT'])
 def update_event_date(event_id):
     event = Event.query.get(event_id)
     if event is None:
         return jsonify(message='Event not found'), 404
 
-    new_date = request.json.get('date')
-    if new_date is None:
+    new_date_str = request.json.get('date')
+    if new_date_str is None:
         return jsonify(message='Date is required'), 400
+
+    # Convert the date string to a datetime object
+    new_date = datetime.strptime(new_date_str, '%Y-%m-%d').date()
 
     event.date = new_date
     db.session.commit()
@@ -163,11 +173,28 @@ def update_event_date(event_id):
 @app.route('/api/events/<int:event_id>/date', methods=['GET'])
 def get_event_date(event_id):
     event = Event.query.get(event_id)
+    if event:
+        date = event.date.date() if event.date else None
+        return jsonify(date=date), 200
+    else:
+        return jsonify(message='Event not found'), 404
+
+@app.route('/api/events/<int:event_id>/date', methods=['PUT'])
+def update_event_date_endpoint(event_id):
+    event = Event.query.get(event_id)
     if event is None:
         return jsonify(message='Event not found'), 404
 
-    return jsonify(date=event.date)
+    new_date = request.json.get('date')
+    if new_date is None:
+        return jsonify(message='Date is required'), 400
 
+    new_datetime = datetime.strptime(new_date, '%Y-%m-%d')
+
+    event.date = new_datetime
+    db.session.commit()
+
+    return jsonify(event=event.to_dict())
 
 @app.route('/api/events/<int:event_id>/budget', methods=['GET'])
 def get_budget(event_id):
