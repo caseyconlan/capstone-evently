@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from './AuthContext';
 
-const Login = ({ setLoggedIn }) => {
+const Login = () => {
   const [formType, setFormType] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +11,7 @@ const Login = ({ setLoggedIn }) => {
   const [lastName, setLastName] = useState("");
   const [csrfToken, setCsrfToken] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const { setLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -244,8 +246,8 @@ const handleDeleteAccount = (e) => {
       <div className="title">Welcome to Eventable!</div>
       <div className="description">Event Planning Made Simple</div>
       <div>
-        <button className="button-1" role="button" onClick={() => handleFormType("login")}>Returning Customer</button>
-        <button className="button-1" role="button" onClick={() => handleFormType("newUser")}>New Customer</button>
+        <button className="button-primary" role="button" onClick={() => handleFormType("login")}>Returning User</button>
+        <button className="button-primary" role="button" onClick={() => handleFormType("newUser")}>New User</button>
         {formType === "login" && renderLoginForm()}
         {formType === "newUser" && renderNewUserForm()}
       </div>

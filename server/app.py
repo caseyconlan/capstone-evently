@@ -87,7 +87,6 @@ def get_events():
     event_list = [event.to_dict() for event in events]
     return jsonify(events=event_list)
 
-# app.py
 @app.route('/api/events', methods=['POST'])
 def create_event():
     if not request.is_json:

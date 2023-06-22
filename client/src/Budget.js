@@ -126,7 +126,12 @@ const Budget = () => {
         >
           <option value="">Select a category</option>
           <option value="Attire">Attire</option>
+          <option value="Advertising">Advertising</option>
+          <option value="Cleanup">Communications</option>
+          <option value="Communications">Communications</option>
           <option value="Decorations">Decorations</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Equipment">Equipment</option>
           <option value="Favors">Favors</option>
           <option value="Food">Food</option>
           <option value="Flowers">Flowers</option>

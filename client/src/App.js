@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Directory from './Directory';
@@ -9,24 +9,16 @@ import Bookkeeping from './Bookkeeping';
 import ToDoList from './ToDoList';
 import ArchivedEvents from './ArchivedEvents';
 import { EventProvider } from './EventContext';
+import { AuthContext } from './AuthContext';
 import './App.css';
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-      setLoggedIn(true);
-    }
-
-  }, []);
+  const { loggedIn, logout } = useContext(AuthContext); 
 
   return (
     <EventProvider>
       <Router>
         <div>
-          {/* Add your header or navigation component here */}
           <Switch>
             {loggedIn ? (
               <>
@@ -37,9 +29,12 @@ const App = () => {
                 <Route path="/bookkeeping" component={Bookkeeping} />
                 <Route path="/todolist" component={ToDoList} />
                 <Route path="/archived-events" component={ArchivedEvents} />
+                </>
+              ) : (
+                 <>
+                <Route exact path="/" component={Login} /> 
+                <Redirect to="/" />
               </>
-            ) : (
-              <Route path="/" component={() => <Login setLoggedIn={setLoggedIn} />} />
             )}
           </Switch>
         </div>
