@@ -6,6 +6,7 @@ import GuestList from './GuestList';
 import EventDetails from './EventDetails';
 import Bookkeeping from './Bookkeeping';
 import ToDoList from './ToDoList';
+import Directory from './Directory';
 import ArchivedEvents from './ArchivedEvents';
 import { EventProvider } from './EventContext'; // Import the EventProvider component
 import './App.css';
@@ -18,7 +19,7 @@ const App = () => {
           {/* Add your header or navigation component here */}
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/vendors" component={VendorList} />
+            <Route path="/directory" component={Directory} />
             <Route path="/guest-list" component={GuestList} />
             <Route path="/events/:id" component={EventDetails} />
             <Route path="/bookkeeping" component={Bookkeeping} />

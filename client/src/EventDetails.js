@@ -10,7 +10,6 @@ const EventDetails = () => {
   const { events, setEvents } = useContext(EventContext);
   const { id } = useParams();
   const [event, setEvent] = useState(null);
-  const [eventName, setEventName] = useState('');
   const [editEventId, setEditEventId] = useState(null);
   const [editedEventName, setEditedEventName] = useState('');
   const [eventDate, setEventDate] = useState('');
@@ -32,14 +31,14 @@ const EventDetails = () => {
 
   const fetchEventDetails = async () => {
     try {
-      const response = await axios.get(`/api/events/${id}`);
-      setEvent(response.data.event);
-      setEventName(response.data.event.name);
-      setEventDate(response.data.event.date); // Set the event date state
+      const eventResponse = await axios.get(`/api/events/${id}`);
+      const dateResponse = await axios.get(`/api/events/${id}/date`);
+      setEvent(eventResponse.data.event);
+      setEventDate(dateResponse.data.date); // Set the event date state
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
 
   const handleEditEvent = (eventId, eventName) => {
     setEditEventId(eventId);
@@ -48,15 +47,14 @@ const EventDetails = () => {
 
   const handleSaveEdit = async (eventId) => {
     try {
-      await axios.put(`/api/events/${eventId}`, { name: editedEventName, date: eventDate });
+      await axios.put(`/api/events/${eventId}/date`, { date: eventDate });
       fetchEventDetails();
       setEditEventId(null);
       setEditedEventName('');
-      setEventDate(eventDate); // Update the event date state
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
 
   const handleCancelEdit = () => {
     setEditEventId(null);
@@ -84,10 +82,12 @@ const EventDetails = () => {
     return <div>Loading...</div>;
   }
 
+  const formattedDate = eventDate ? eventDate.split('T')[0] : '';
+
   return (
     <div>
       <h1>{event.name}</h1>
-      <p>Date: {event.date}</p>
+      {formattedDate && <h1>Date: {formattedDate}</h1>}
       <p>Countdown: {countdown}</p>
       <button className="add-event-button" onClick={handleHomeClick}>
         Home
@@ -108,7 +108,7 @@ const EventDetails = () => {
         ) : (
           <div>
             {eventDate ? (
-              <span>{eventDate}</span>
+              <span>{formattedDate}</span>
             ) : (
               <span>No event date set</span>
             )}

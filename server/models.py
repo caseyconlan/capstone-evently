@@ -122,6 +122,15 @@ class ArchivedEvent(db.Model):
             'date_archived': self.date_archived.strftime('%Y-%m-%d %H:%M:%S')
         }
 
+class Directory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(50))
+    name = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    email = db.Column(db.String(100))
+    address = db.Column(db.String(200))
+    notes = db.Column(db.Text)
+
 # Association table for the many-to-many relationship between events and vendors
 event_vendor = db.Table(
     'event_vendor',

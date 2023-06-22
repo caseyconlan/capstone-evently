@@ -14,39 +14,6 @@ body {
     background-color: #CCCCCC;
   }
   
-  header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  nav ul {
-    list-style-type: none;
-    display: flex;
-  }
-  
-  nav ul li {
-    margin-left: 10px;
-  }
-  
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 5px 10px;
-  }
-  
-  nav ul li a:hover {
-    background-color: #fff;
-    color: #007bff;
-    border-radius: 4px;
-  }
-  
   .content-container {
     max-width: 800px;
     margin: 20px auto;
@@ -90,27 +57,19 @@ body {
     border-radius: 4px;
     margin-bottom: 10px;
   }
-  
-  .add-guest-section button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
 
   .add-guest-container {
-    max-width: 1300px;
+    max-width: fit-content;
     margin: 20px auto;
+    margin-left: 10px;
+    margin-right: 10px;
     padding: 20px;
     background-color: #CCCCCC;
     border: 5px solid #501F3A;
     border-radius: 4px;
     text-align: center;
   }
-  
+
   .guests-section {
     margin-bottom: 20px;
     justify-content: center;
@@ -142,7 +101,7 @@ body {
 
 .home-container {
     max-width: flex;
-    margin: 50px auto;
+    margin: 100px auto;
     margin-left: 50px;
     margin-right: 50px;
     padding-left: 20px;
@@ -216,20 +175,6 @@ body {
     align-items: center;
   }
 
-  h1 {
-    color: #0F292F;
-
-  }
-
-  h2 {
-    color: #0F292F;
-  }
-
-  h3 {
-    color: #0F292F;
-    size: 24px;
-  }
-
   /* VendorList.css */
 .vendor-list {
     display: flex;
@@ -256,6 +201,7 @@ body {
   }
   
   .vendor-input {
+    max-width: fit-content;
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #CB2D6F;
@@ -304,7 +250,7 @@ body {
     padding: 20px;
     border: 1px solid var(--accent-color);
     background-color: var(--secondary-color);
-    color: white;
+    color: var(--accent-color);
   }
   
   .add-vendor-form h3 {
@@ -331,7 +277,7 @@ body {
     padding: 10px 20px;
     border: none;
     background-color: var(--primary-color);
-    color: white;
+    color: var(--accent-color);
     cursor: pointer;
   }
   
@@ -412,7 +358,7 @@ body {
   }
 
   .add-vendor-container {
-    max-width: 1400px;
+    max-width: fit-content;
     margin: 20px auto;
     padding: 20px;
     background-color: #CCCCCC;
@@ -435,4 +381,149 @@ body {
     text-align: center;
     justify-content: center;
     align-items: center;
+  }
+  
+  .resources {
+    background: var(--accent-color);
+    padding: 20px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: start;
+    position: relative;
+  }
+  
+  .ribbon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--accent-color);
+    padding: 10px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .section {
+    background: var(--accent-color);
+    padding: 20px;
+    color: var(--primary-color);
+    border-radius: 10px;
+    margin-top: 100px;
+  }
+  
+  h1 {
+    color: var(--primary-color);
+    margin-top: 0;
+  }
+  
+  h2 {
+    color: var(--primary-color);
+  }
+
+  h3 {
+    color: var(--primary-color);
+    size: 24px;
+  }
+
+  h3 {
+    color: var(--primary-color);
+  }
+  
+  .todo-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+  }
+  
+  .todo-list li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 30px;
+  }
+  
+  .todo-list li:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    margin: -5px;
+  }
+  
+  .todo-list li.checked:before {
+    background-color: var(--accent-color);
+  }
+  
+  .todo-list li span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .todo-list li.checked span {
+    text-decoration: line-through;
+  }
+  
+  .todo-list li li {
+    margin-bottom: 5px;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .todo-list li li:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+  }
+  
+  .todo-list li li span {
+    color: var(--secondary-color);
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  .to-do-list-title {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav-links {
+    padding: 8px 16px;
+    background-color: #501F3A;
+    color: #CCCCCC;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .route-links {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--primary-color);
+    padding: 10px;
+    color: #CCCCCC;
+    font-size: 24px;
+    font-weight: bold;
   }

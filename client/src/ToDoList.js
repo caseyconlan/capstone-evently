@@ -1,6 +1,7 @@
 import React from 'react';
+import './App.css';
 
-const todoList= () => {
+const todoList = () => {
   const todoKickoff = [
     'Determine date and time',
     'Evaluate goals and expected outcomes',
@@ -30,31 +31,31 @@ const todoList= () => {
     'Accessibility plan',
     'Portable restroom facilities (150 guests per portable unit)',
     'Parking and transportation plan',
-      '>Public',
-      '>Vendors',
-      '>VIP',
-      '>Staff / volunteers',
-      '>Valet',
-      '>Performers',
-      '>Bicycle',
-      '>Other',
+    '>Public',
+    '>Vendors',
+    '>VIP',
+    '>Staff / volunteers',
+    '>Valet',
+    '>Performers',
+    '>Bicycle',
+    '>Other',
     'Determine needs',
     'Rental equipment:',
-      '>Stages',
-      '>Chairs',
-      '>Refrigeration',
-      '>Audio / visual',
-      '>Power',
-      '>Tents / canopies',
-      '>Fencing',
-      '>Barricades',
-      '>Signage',
-      '>Tables',
-      '>Communication equipment',
-    '-Building needs',
-    '-Power needs and distribution',
-    '-Emergency vehicle access',
-    '-Security needs',
+    '>Stages',
+    '>Chairs',
+    '>Refrigeration',
+    '>Audio / visual',
+    '>Power',
+    '>Tents / canopies',
+    '>Fencing',
+    '>Barricades',
+    '>Signage',
+    '>Tables',
+    '>Communication equipment',
+    'Building needs',
+    '>Power needs and distribution',
+    '>Emergency vehicle access',
+    '>Security needs',
     'Setup / tear-down schedule',
     'Trash and recycling',
     'First aid',
@@ -65,7 +66,7 @@ const todoList= () => {
     'Site preparation mow grass, plow snow, etc.',
     'Decorations',
     'Pre and post-event walk through ',
-  ]
+  ];
 
   const todoVendors = [
     'Determine what types are appropriate',
@@ -84,37 +85,54 @@ const todoList= () => {
     'Determine financial methods on site',
     'Survey vendors after event',
     'Determine setup / tear-down procedures',
-  ]
+  ];
+
+  const indentItem = (item) => {
+    if (item.startsWith('>')) {
+      return <li style={{ marginLeft: '20px' }}>{item.substring(1)}</li>;
+    }
+    return <li>{item}</li>;
+  };
 
   return (
-    <div className="resources">
-      <h1>Event Planning To-Do List</h1>
-      <h2>Kick Off Items</h2>
-      <ul className="todo-list">
-        {todoKickoff.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      <h2>Financial Items</h2>
-      <ul className="todo-list">
-        {todoFinance.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      <h2>Logistical Items</h2>
-      <ul className="todo-list">
-        {todoLogistics.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      <h2>Vendor Items</h2>
-      <ul className="todo-list">
-        {todoVendors.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+    <div className="resources" style={{ background: 'var(--primary-color)', padding: '20px' }}>
+    <div className="ribbon">
+      <h1 style={{ color: 'var(--primary-color)' }}>To Do List</h1>
     </div>
-  );
-};
+    <div className="section">
+        <h4 style={{ color: 'var(--primary-color)'}}>Kick Off Items</h4>
+        <ul className="todo-list">
+          {todoKickoff.map((item, index) => (
+            <React.Fragment key={index}>{indentItem(item)}</React.Fragment>
+          ))}
+        </ul>
+      </div>
+      <div className="section">
+        <h4 style={{ color: 'var(--primary-color)' }}>Financial Items</h4>
+        <ul className="todo-list">
+          {todoFinance.map((item, index) => (
+            <React.Fragment key={index}>{indentItem(item)}</React.Fragment>
+          ))}
+        </ul>
+      </div>
+      <div className="section">
+        <h4 style={{ color: 'var(--primary-color)' }}>Logistical Items</h4>
+        <ul className="todo-list">
+          {todoLogistics.map((item, index) => (
+            <React.Fragment key={index}>{indentItem(item)}</React.Fragment>
+          ))}
+        </ul>
+      </div>
+      <div className="section">
+        <h4 style={{ color: 'var(--primary-color)' }}>Vendor Items</h4>
+        <ul className="todo-list">
+          {todoVendors.map((item, index) => (
+            <React.Fragment key={index}>{indentItem(item)}</React.Fragment>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );  
+};  
 
 export default todoList;

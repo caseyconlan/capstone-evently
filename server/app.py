@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor, ArchivedEvent
+from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor, ArchivedEvent, Directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
@@ -300,6 +300,36 @@ def get_archived_events():
     archived_event_list = [event.to_dict() for event in archived_events]
     return jsonify(events=archived_event_list)
 
+@app.route('/directory', methods=['POST'])
+def create_entry():
+    data = request.json
+    new_entry = Directory(
+        type=data['type'],
+        name=data['name'],
+        phone=data['phone'],
+        email=data['email'],
+        address=data['address'],
+        notes=data['notes']
+    )
+    db.session.add(new_entry)
+    db.session.commit()
+    return jsonify(message='Entry created successfully')
+
+@app.route('/directory', methods=['GET'])
+def get_entries():
+    entries = Directory.query.all()
+    result = [
+        {
+            'type': entry.type,
+            'name': entry.name,
+            'phone': entry.phone,
+            'email': entry.email,
+            'address': entry.address,
+            'notes': entry.notes
+        }
+        for entry in entries
+    ]
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

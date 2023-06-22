@@ -53,6 +53,10 @@ const Budget = () => {
     }
   };
 
+  const calculateTotalBudget = (costs) => {
+    return costs.reduce((sum, cost) => sum + cost.amount, 0);
+  };
+
   const handleAddCost = () => {
     const newCost = {
       id: Date.now(),
@@ -70,11 +74,11 @@ const Budget = () => {
     setCostCategory('');
     setCostVendor('');
 
-    setTotalBudget(calculateTotalBudget(updatedCosts));
-  };
+    const totalBudget = calculateTotalBudget(updatedCosts);
+    setTotalBudget(totalBudget);
 
-  const calculateTotalBudget = (costs) => {
-    return costs.reduce((sum, cost) => sum + cost.amount, 0);
+    const remainingBudget = targetBudget - totalBudget;
+    setRemainingBudget(remainingBudget);
   };
 
   const handleSaveTargetBudget = async () => {
@@ -168,11 +172,10 @@ const Budget = () => {
       </div>
       <div>
         <h3>Total Budget: ${totalBudget}</h3>
-        <h3>Remaining Budget: ${remainingBudget}</h3>
+        <h3>Remaining Budget: ${targetBudget-totalBudget}</h3>
         <VictoryPie
           data={[
             ...costs,
-            { category: 'Remaining Budget', amount: remainingBudget },
           ]}
           x="category"
           y="amount"
@@ -181,6 +184,6 @@ const Budget = () => {
       </div>
     </div>
   );
-};  
+};
 
 export default Budget;

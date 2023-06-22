@@ -4,6 +4,8 @@ import ArchivedEvents from './ArchivedEvents';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+export const useEvents = () => useContext(EventContext);
+
 const EventList = () => {
   const [events, setEvents] = useContext(EventContext);
   const [eventName, setEventName] = useState('');
@@ -11,13 +13,18 @@ const EventList = () => {
   const [editedEventName, setEditedEventName] = useState('');
   const [archivedEvents, setArchivedEvents] = useState([]);
 
-  const handleArchiveEvent = (eventId) => {
+  const handleArchiveEvent = async (eventId) => {
     const eventToArchive = events.find((event) => event.id === eventId);
     if (eventToArchive) {
-      setEvents(events.filter((event) => event.id !== eventId));
-      setArchivedEvents((prevArchivedEvents) => [...prevArchivedEvents, eventToArchive]);
+      try {
+        await axios.delete(`/api/events/${eventId}`);
+        fetchEvents();
+        setArchivedEvents((prevArchivedEvents) => [...prevArchivedEvents, eventToArchive]);
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }; 
+  };    
 
   useEffect(() => {
     fetchEvents();
@@ -27,11 +34,8 @@ const EventList = () => {
   const fetchArchivedEvents = async () => {
     try {
       const response = await axios.get('/api/events/archived');
-      if (Array.isArray(response.data.events)) {
-        setArchivedEvents(response.data.events);
-      } else {
-        console.log('Error: server response is not an array');
-      }
+      const fetchedArchivedEvents = response.data.events || [];
+      setArchivedEvents(fetchedArchivedEvents);
     } catch (error) {
       console.error(error);
     }
