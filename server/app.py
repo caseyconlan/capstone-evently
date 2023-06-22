@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor, ArchivedEvent, Directory
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, jsonify, request, make_response
 from flask_migrate import Migrate
 from datetime import datetime
 from flask_cors import CORS
@@ -19,6 +21,59 @@ with app.app_context():
     db.create_all()
 
 # Routes
+
+# User model
+class User(db.Model):
+    __tablename__ = 'users'
+    __table_args__ = {'extend_existing': True}
+
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String)
+    last_name = db.Column(db.String)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password_hash = db.Column(db.String(100), nullable=False)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+# Login route
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if user and user.check_password(password):
+        return jsonify(message='Login successful'), 200
+    else:
+        return jsonify(message='Invalid username or password'), 401
+
+# New user route
+@app.route('/owners', methods=['POST'])
+def create_new_user():
+    first_name = request.json.get('first_name')
+    last_name = request.json.get('last_name')
+    email = request.json.get('email')
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        return jsonify(message='Username already exists'), 400
+
+    new_user = User(first_name=first_name, last_name=last_name, email=email, username=username)
+    new_user.set_password(password)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify(message='New user created'), 201
 
 # Home route
 @app.route('/')
