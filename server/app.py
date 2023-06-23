@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor, ArchivedEvent, Directory
+from models import db, Event, BudgetItem, ProjectItem, Guest, Vendor, ArchivedEvent, Directory, BookkeepingEntry
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, jsonify, request, make_response
@@ -383,6 +383,36 @@ def get_entries():
         for entry in entries
     ]
     return jsonify(result)
+
+@app.route('/bookkeeping', methods=['POST'])
+def create_BookkeepingEntry():
+    data = request.get_json()
+    new_entry = BookkeepingEntry(
+        type=data['type'],
+        category=data['category'],
+        amount=data['amount'],
+        month=data['month'],
+        date=data['date']
+    )
+    db.session.add(new_entry)
+    db.session.commit()
+    return jsonify({'message': 'Bookkeeping entry created successfully'})
+
+@app.route('/bookkeeping', methods=['GET'])
+def get_BookkeepingEntries():
+    entries = BookkeepingEntry.query.all()
+    results = []
+    for entry in entries:
+        entry_data = {
+            'id': entry.id,
+            'type': entry.type,
+            'category': entry.category,
+            'amount': entry.amount,
+            'month': entry.month,
+            'date': entry.date.strftime('%Y-%m-%d')
+        }
+        results.append(entry_data)
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
