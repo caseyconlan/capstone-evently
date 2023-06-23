@@ -165,19 +165,23 @@ class Directory(db.Model):
     notes = db.Column(db.Text)
 
 class BookkeepingEntry(db.Model):
+    __tablename__ = 'bookkeeping'
     id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(50))
-    category = db.Column(db.String(100))
-    amount = db.Column(db.Float)
-    month = db.Column(db.Integer)
-    date = db.Column(db.DateTime)
+    type = db.Column(db.String(10), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    month = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, type, category, amount, month, date):
-        self.type = type
-        self.category = category
-        self.amount = amount
-        self.month = month
-        self.date = date
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'type': self.type,
+            'category': self.category,
+            'amount': self.amount,
+            'month': self.month,
+            'date': self.date.strftime('%Y-%m-%d %H:%M:%S')
+        }
 
 # Association table for the many-to-many relationship between events and vendors
 event_vendor = db.Table(

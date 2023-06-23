@@ -6,6 +6,8 @@ from flask import Flask, jsonify, request, make_response
 from flask_migrate import Migrate
 from datetime import datetime
 from flask_cors import CORS
+import traceback
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -385,34 +387,28 @@ def get_entries():
     return jsonify(result)
 
 @app.route('/bookkeeping', methods=['POST'])
-def create_BookkeepingEntry():
-    data = request.get_json()
-    new_entry = BookkeepingEntry(
-        type=data['type'],
-        category=data['category'],
-        amount=data['amount'],
-        month=data['month'],
-        date=data['date']
-    )
-    db.session.add(new_entry)
-    db.session.commit()
-    return jsonify({'message': 'Bookkeeping entry created successfully'})
+def create_bookkeeping_entry():
+    try:
+        entry_data = request.json
+        entry = BookkeepingEntry(
+            type=entry_data['type'],
+            category=entry_data['category'],
+            amount=entry_data['amount'],
+            month=entry_data['month'],
+            date=datetime.strptime(entry_data['date'], "%Y-%m-%dT%H:%M:%S.%fZ") # parsing the date string to datetime object
+        )
+        db.session.add(entry)
+        db.session.commit()
+        return jsonify(entry.to_dict()), 201
+    except Exception as e:
+        print(traceback.format_exc())  # This will print the full traceback
+        return jsonify(error=str(e)), 500
 
+# Route to get all bookkeeping entries
 @app.route('/bookkeeping', methods=['GET'])
-def get_BookkeepingEntries():
+def get_bookkeeping_entries():
     entries = BookkeepingEntry.query.all()
-    results = []
-    for entry in entries:
-        entry_data = {
-            'id': entry.id,
-            'type': entry.type,
-            'category': entry.category,
-            'amount': entry.amount,
-            'month': entry.month,
-            'date': entry.date.strftime('%Y-%m-%d')
-        }
-        results.append(entry_data)
-    return jsonify(results)
+    return jsonify([entry.to_dict() for entry in entries])
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

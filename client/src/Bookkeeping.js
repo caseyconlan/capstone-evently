@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis } from 'victory';
+import { useParams, Link, useHistory } from 'react-router-dom';
 
 const months = [
+  '0',
   'Jan',
   'Feb',
   'Mar',
@@ -22,6 +24,12 @@ const Bookkeeping = () => {
   const [newAmount, setNewAmount] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
 
+  const history = useHistory();
+
+  const handleHomeClick = () => {
+    history.push('/'); // Replace '/' with the path to your home page
+  };
+
   useEffect(() => {
     fetchBookkeepingEntries();
   }, []);
@@ -36,10 +44,10 @@ const Bookkeeping = () => {
     }
   };
 
-  const createBookkeepingEntry = async () => {
+  const createBookkeepingEntry = async (type) => {
     try {
       const entry = {
-        type: 'Expense',
+        type: type,
         category: newCategory,
         amount: Number(newAmount),
         month: Number(selectedMonth),
@@ -55,15 +63,16 @@ const Bookkeeping = () => {
       });
 
       if (response.ok) {
+        const responseData = await response.json();
+        setData([...data, responseData]);
         setNewCategory('');
         setNewAmount('');
         setSelectedMonth('');
-        fetchBookkeepingEntries();
       } else {
-        console.log('Error creating bookkeeping entry');
+        console.error('Error adding bookkeeping entry:', response.status);
       }
     } catch (error) {
-      console.log('Error creating bookkeeping entry:', error);
+      console.error('Error adding bookkeeping entry:', error);
     }
   };
 
@@ -90,7 +99,7 @@ const Bookkeeping = () => {
       <div>
         <h2>Revenue and Expenses</h2>
         <VictoryChart>
-          <VictoryAxis tickFormat={(x) => months[x]} />
+          <VictoryAxis independentAxis tickFormat={(x) => months[x]} />
           <VictoryAxis dependentAxis tickFormat={(y) => `$${y}`} />
           <VictoryStack colorScale={['green', 'red']}>
             <VictoryBar data={groupedData} x="month" y="revenue" />
@@ -101,39 +110,12 @@ const Bookkeeping = () => {
     );
   };
 
-  const handleAddRevenue = () => {
-    const newEntry = {
-      type: 'Revenue',
-      category: newCategory,
-      amount: Number(newAmount),
-      month: Number(selectedMonth),
-      date: new Date(),
-    };
-    setData([...data, newEntry]);
-    setNewCategory('');
-    setNewAmount('');
-    setSelectedMonth('');
-  };
-
-  const handleAddExpense = () => {
-    const newEntry = {
-      type: 'Expense',
-      category: newCategory,
-      amount: Number(newAmount),
-      month: Number(selectedMonth),
-      date: new Date(),
-    };
-    setData([...data, newEntry]);
-    setNewCategory('');
-    setNewAmount('');
-    setSelectedMonth('');
-  };
-
   return (
     <div>
       <h1>Bookkeeping Dashboard</h1>
+      <Link to="/" className="add-event-button">Home</Link>
       {renderChart()}
-
+      
       <div>
         <h2>Add Entry</h2>
         <div>
@@ -156,7 +138,7 @@ const Bookkeeping = () => {
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
           />
-          <button onClick={handleAddRevenue}>Add</button>
+          <button onClick={() => createBookkeepingEntry('Revenue')}>Add</button>
         </div>
 
         <div>
@@ -179,7 +161,7 @@ const Bookkeeping = () => {
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
           />
-          <button onClick={handleAddExpense}>Add</button>
+          <button onClick={() => createBookkeepingEntry('Expense')}>Add</button>
         </div>
       </div>
     </div>
