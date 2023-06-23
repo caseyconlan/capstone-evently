@@ -53,6 +53,22 @@ const GuestList = ({ eventId }) => {
     }
   };
 
+  const handleRsvpChange = async (guestId, newRsvp) => {
+    const updatedRsvp = { rsvp: parseInt(newRsvp) };
+  
+    try {
+      const response = await axios.put(`/api/events/${eventId}/guests/${guestId}`, updatedRsvp);
+      if (response.status === 200) {
+        // Update the guest list state
+        setGuests(guests.map(guest => 
+          guest.id === guestId ? {...guest, rsvp: newRsvp} : guest
+        ));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }; 
+
   const clearGuestForm = () => {
     setGuestTitle('');
     setFirstName('');
@@ -112,7 +128,9 @@ const GuestList = ({ eventId }) => {
                 <td>{guest.city}</td>
                 <td>{guest.state}</td>
                 <td>{guest.zip}</td>
-                <td>{guest.rsvp ? 'Yes' : 'No'}</td>
+                <td>
+                  <input type="number" min="0" value={guest.rsvp || 0} onChange={(e) => handleRsvpChange(guest.id, e.target.value)} />
+                </td>
               </tr>
             ))}
           </tbody>

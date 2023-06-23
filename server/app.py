@@ -349,6 +349,28 @@ def add_guest(event_id):
     else:
         return jsonify(message='Event not found'), 404
 
+@app.route('/api/events/<int:event_id>/guests/<int:guest_id>', methods=['PUT'])
+def update_guest(event_id, guest_id):
+    data = request.get_json()
+    
+    # Check if the RSVP is present in the request data
+    if 'rsvp' not in data:
+        return jsonify({"msg": "Missing RSVP status"}), 400
+    
+    # Retrieve the guest from the event's guest list
+    event = Event.query.get(event_id)
+    if event:
+        guest = Guest.query.get(guest_id)
+        if guest in event.guests:
+            # Update the RSVP status and commit the changes
+            guest.rsvp = int(data['rsvp']) if data['rsvp'] is not None else None
+            db.session.commit()
+            return jsonify(guest=guest.to_dict()), 200
+        else:
+            return jsonify(message='Guest not found'), 404
+    else:
+        return jsonify(message='Event not found'), 404
+
 @app.route('/api/events/archived', methods=['GET'])
 def get_archived_events():
     archived_events = ArchivedEvent.query.all()

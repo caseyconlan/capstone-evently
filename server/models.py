@@ -98,7 +98,7 @@ class Guest(db.Model):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(100), nullable=False)
     zip = db.Column(db.String(20), nullable=False)
-    rsvp = db.Column(db.Boolean, default=False)
+    rsvp = db.Column(db.Integer)
 
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('guests.id'))
