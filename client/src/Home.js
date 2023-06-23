@@ -26,8 +26,8 @@ const Home = () => {
         )}
       </div>
       <div className="home-container">
-        <h1>Welcome to Eventable!</h1>
-        <h2>Events</h2>
+        <h1 className="todo-title">Welcome to Eventable!</h1>
+        <h1 className="description">Events</h1>
         <EventList />
       </div>
     </div>
