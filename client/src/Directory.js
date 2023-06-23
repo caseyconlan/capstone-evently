@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, Link, useHistory } from 'react-router-dom';
+import './App.css';
 
 const Directory = () => {
   const [type, setType] = useState('');
@@ -8,6 +10,12 @@ const Directory = () => {
   const [address, setAddress] = useState('');
   const [notes, setNotes] = useState('');
   const [directoryEntries, setDirectoryEntries] = useState([]);
+
+  const history = useHistory();
+
+  const handleHomeClick = () => {
+    history.push('/'); // Replace '/' with the path to your home page
+  };
 
   useEffect(() => {
     fetch('/directory')
@@ -20,7 +28,7 @@ const Directory = () => {
       });
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const newEntry = {
       type,
@@ -56,46 +64,76 @@ const Directory = () => {
   };
 
   return (
-    <div>
-      <h2>Add Entry</h2>
+    <div className="directory-container">
+      <h1 className="todo-title">Directory</h1>
+      <Link to="/" className="add-event-button">Home</Link>
+      <h1>Add Entry</h1>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label htmlFor="type">Type:</label>
-          <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
+          <select
+            id="type"
+            value={type}
+            onChange={e => setType(e.target.value)}
+          >
             <option value="">-- Select Type --</option>
             <option value="Client">Client</option>
             <option value="Vendor">Vendor</option>
           </select>
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="phone">Phone:</label>
-          <input type="text" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <input
+            type="text"
+            id="phone"
+            value={phone}
+            onChange={e => setPhone(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="email">Email:</label>
-          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="address">Address:</label>
-          <input type="address" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
+          <input
+            type="address"
+            id="address"
+            value={address}
+            onChange={e => setAddress(e.target.value)}
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="notes">Notes:</label>
-          <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+          <textarea
+            id="notes"
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
+          />
         </div>
         <button type="submit">Add</button>
       </form>
 
       <h2>Directory</h2>
       {directoryEntries.length > 0 ? (
-        <table>
+        <table className="directory-table">
           <thead>
             <tr>
-              <th>Type</th>
+            <th>Type</th>
               <th>Name</th>
               <th>Phone</th>
               <th>Email</th>

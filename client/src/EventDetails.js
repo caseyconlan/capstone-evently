@@ -85,16 +85,14 @@ const EventDetails = () => {
   const formattedDate = eventDate ? eventDate.split('T')[0] : '';
 
   return (
-    <div>
-      <h1>{event.name}</h1>
+    <div className="event-details">
+      <h1 className="event-title">{event.name}</h1>
       {formattedDate && <h1>Date: {formattedDate}</h1>}
-      <p>Countdown: {countdown}</p>
-      <button className="add-event-button" onClick={handleHomeClick}>
-        Home
-      </button>
-      <h2>Event ID: {id}</h2>
-      <div>
-        <h3>Event Date</h3>
+      <h1>Countdown: {countdown}</h1>
+      <Link to="/" className="add-event-button">Home</Link>
+      <h2 className="event-text">Event ID: {id}</h2>
+      <div className="event-date">
+        <h1>Event Date</h1>
         {editEventId === event.id ? (
           <div>
             <input
@@ -112,7 +110,7 @@ const EventDetails = () => {
             ) : (
               <span>No event date set</span>
             )}
-            <button onClick={() => handleEditEvent(event.id, event.name)}>Edit</button>
+            <button className="button-primary" onClick={() => handleEditEvent(event.id, event.name)}>Edit</button>
           </div>
         )}
       </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 const ArchivedEvents = () => {
   const [archivedEvents, setArchivedEvents] = useState([]);
 
@@ -24,12 +25,12 @@ const ArchivedEvents = () => {
   console.log('Rendered Archived Events:', archivedEvents);
 
   if (archivedEvents.length === 0) {
-    return <div>No archived events found.</div>; // Return a message when no archived events are available
+    return <div className="archived-events">No archived events found.</div>; // Return a message when no archived events are available
   }
 
   return (
     <div className="archived-events">
-      <h2>Archived Events</h2>
+      <h1 className="todo-title">Archived Events</h1>
       {archivedEvents.map((event) => (
         <div key={event.id} className="archived-event-tile">
           <Link to={`/events/${event.id}`}>
@@ -37,6 +38,7 @@ const ArchivedEvents = () => {
           </Link>
         </div>
       ))}
+      <Link to="/" className="add-event-button">Home</Link>
     </div>
   );
 };

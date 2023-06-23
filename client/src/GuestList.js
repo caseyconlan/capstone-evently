@@ -67,7 +67,7 @@ const GuestList = ({ eventId }) => {
   return (
     <div className="guest-list">
       <div className="add-guest-container">
-        <h3>Add Guest</h3>
+        <h1>Add Guest</h1>
         <label>Title:</label>
         <input className="vendor-input" type="text" value={guestTitle} onChange={(e) => setGuestTitle(e.target.value)} />
         <label>First Name:</label>
@@ -88,7 +88,7 @@ const GuestList = ({ eventId }) => {
       </div>
       <div>
         <div className="Guest-List-Container">
-        <h3>Guests</h3>
+        <h1>Guests</h1>
         <table className="guest-table">
           <thead>
             <tr>

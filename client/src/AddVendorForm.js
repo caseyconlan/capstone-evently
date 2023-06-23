@@ -38,7 +38,7 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
 
   return (
     <div className="add-vendor-container">
-      <h3>Add Vendor</h3>
+      <h1>Add Vendor</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Name:

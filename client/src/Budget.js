@@ -91,12 +91,12 @@ const Budget = () => {
   };
 
   return (
-    <div>
-      <h2>Budget</h2>
-      <p>Target Budget: ${targetBudget}</p>
+    <div className="budget-container">
+      <h1>Budget</h1>
+      <h2 className="event-text">Target Budget: ${targetBudget}</h2>
       <div>
         <h3>Set Target Budget</h3>
-        <input
+        <input className="budget-input"
           type="number"
           placeholder="Enter Target Budget"
           value={targetBudget}
@@ -108,19 +108,19 @@ const Budget = () => {
       </div>
       <div>
         <h3>Add Cost</h3>
-        <input
+        <input className="form-input"
           type="text"
           placeholder="Cost Name"
           value={costName}
           onChange={(e) => setCostName(e.target.value)}
         />
-        <input
+        <input className="form-input"
           type="number"
           placeholder="Cost Amount"
           value={costAmount}
           onChange={(e) => setCostAmount(e.target.value)}
         />
-        <select
+        <select className="form-input"
           value={costCategory}
           onChange={(e) => setCostCategory(e.target.value)}
         >
@@ -142,7 +142,7 @@ const Budget = () => {
           <option value="Venue">Venue</option>
           <option value="Other">Other</option>
         </select>
-        <input
+        <input className="form-input"
           type="text"
           placeholder="Vendor"
           value={costVendor}
@@ -152,9 +152,9 @@ const Budget = () => {
           Add Cost
         </button>
       </div>
-      <div>
-        <h3>Costs</h3>
-        <table>
+      <div className="costs-container">
+        <h1>Costs</h1>
+        <table className="costs-table">
           <thead>
             <tr>
               <th>Name</th>
@@ -176,8 +176,8 @@ const Budget = () => {
         </table>
       </div>
       <div>
-        <h3>Total Budget: ${totalBudget}</h3>
-        <h3>Remaining Budget: ${targetBudget-totalBudget}</h3>
+        <h1>Total Budget: ${totalBudget}</h1>
+        <h1>Remaining Budget: ${targetBudget-totalBudget}</h1>
         <VictoryPie
           data={[
             ...costs,

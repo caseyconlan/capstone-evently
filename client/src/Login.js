@@ -111,15 +111,15 @@ const Login = () => {
     <form onSubmit={handleLogin}>
       <label>
         Username:
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input className="login-field" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       </label>
       <label>
         Password:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input className="login-field" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
-      <button type="submit">Log In</button>
-      <button className="button-1" role="button" onClick={handleForgotPassword}>Forgot Password</button>
-      <button className="button-1" role="button" onClick={handleDeleteAccount}>Delete Account</button>
+      <button className="button-login">Log In</button>
+      <button className="button-login" onClick={handleForgotPassword}>Forgot Password</button>
+      <button className="button-login" onClick={handleDeleteAccount}>Delete Account</button>
   </form>
   );
 
@@ -191,7 +191,7 @@ const handleDeleteAccount = (e) => {
     <form onSubmit={handleNewUser}>
       <label>
         First Name:
-        <input
+        <input className="login-field"
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -199,7 +199,7 @@ const handleDeleteAccount = (e) => {
       </label>
       <label>
         Last Name:
-        <input
+        <input className="login-field"
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
@@ -207,7 +207,7 @@ const handleDeleteAccount = (e) => {
       </label>
       <label>
         Email:
-        <input
+        <input className="login-field"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -215,7 +215,7 @@ const handleDeleteAccount = (e) => {
       </label>
       <label>
         Username:
-        <input
+        <input className="login-field"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -223,7 +223,7 @@ const handleDeleteAccount = (e) => {
       </label>
       <label>
         Password:
-        <input
+        <input className="login-field"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -231,27 +231,27 @@ const handleDeleteAccount = (e) => {
       </label>
       <label>
         Confirm Password:
-        <input
+        <input className="login-field"
           type="password"
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
       </label>
-      <button type="submit">Create New User</button>
+      <button className="button-login" type="submit">Create New User</button>
     </form>
   );
 
   return (
-    <>
+    <div className="container">
       <div className="title">Welcome to Eventable!</div>
       <div className="description">Event Planning Made Simple</div>
       <div>
-        <button className="button-primary" role="button" onClick={() => handleFormType("login")}>Returning User</button>
-        <button className="button-primary" role="button" onClick={() => handleFormType("newUser")}>New User</button>
+        <button className="button-login" onClick={() => handleFormType("login")}>Returning User</button>
+        <button className="button-login" onClick={() => handleFormType("newUser")}>New User</button>
         {formType === "login" && renderLoginForm()}
         {formType === "newUser" && renderNewUserForm()}
       </div>
-    </>
+    </div>
   );
 };
 

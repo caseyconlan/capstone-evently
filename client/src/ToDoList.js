@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import './App.css';
 
 const todoList = () => {
@@ -97,7 +98,7 @@ const todoList = () => {
   return (
     <div className="resources" style={{ background: 'var(--primary-color)', padding: '20px' }}>
     <div className="ribbon">
-      <h1 style={{ color: 'var(--primary-color)' }}>To Do List</h1>
+      <h1 className="todo-title">To Do List</h1>
     </div>
     <div className="section">
         <h4 style={{ color: 'var(--primary-color)'}}>Kick Off Items</h4>
@@ -131,6 +132,7 @@ const todoList = () => {
           ))}
         </ul>
       </div>
+      <Link to="/" className="add-event-button">Home</Link>
     </div>
   );  
 };  
