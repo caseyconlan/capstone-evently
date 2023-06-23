@@ -33,7 +33,7 @@ class Event(db.Model, SerializerMixin):
     type = db.Column(db.String(100), nullable=True)
     date = db.Column(db.DateTime, nullable=True)
     budget_amount = db.Column(db.Float, default=0.0)
-    target_budget = db.Column(db.Float, default=0.0)  # Add target_budget column
+    target_budget = db.Column(db.Float, default=0.0) 
     archived = db.Column(db.Boolean, default=False)
 
     def to_dict(self):
@@ -56,6 +56,18 @@ class Event(db.Model, SerializerMixin):
     # Establish the one-to-many relationship with project items
     project_items = db.relationship('ProjectItem', backref='event', lazy=True)
 
+    guests = db.relationship('Guest', backref='event', lazy=True)
+
+    def get_guests(self):
+        # Fetch the guests associated with the event
+        return Guest.query.filter_by(event_id=self.id).all()
+
+    def archive(self):
+        # Archive the event and associated guests
+        self.archived = True
+        guests = self.get_guests()
+        for guest in guests:
+            guest.archived = True
 
 # BudgetItem model
 class BudgetItem(db.Model):
@@ -75,7 +87,6 @@ class ProjectItem(db.Model):
     status = db.Column(db.String(50), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)  # Add foreign key
 
-# Guest model
 class Guest(db.Model):
     __tablename__ = 'guests'
 
@@ -89,8 +100,9 @@ class Guest(db.Model):
     zip = db.Column(db.String(20), nullable=False)
     rsvp = db.Column(db.Boolean, default=False)
 
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-    event = db.relationship('Event', backref=db.backref('guests', lazy=True))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('guests.id'))
+    children = db.relationship('Guest', backref=db.backref('parent', remote_side=[id]))
 
     def to_dict(self):
         return {
@@ -105,6 +117,7 @@ class Guest(db.Model):
             'rsvp': self.rsvp,
             'event_id': self.event_id
         }
+
 
 class Vendor(db.Model):
     __tablename__ = 'vendors'

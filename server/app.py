@@ -133,21 +133,20 @@ def delete_event(event_id):
     if event:
         archived_event = ArchivedEvent(name=event.name, date_archived=datetime.now())
         db.session.add(archived_event)
-        
+
+        # Disassociate guests from the event
+        guests = event.guests
+        for guest in guests:
+            guest.event_id = None
+
+        # Clear vendors, budget items, and project items relationships
         event.vendors.clear()
-
-        for item in event.budget_items:
-            item.archived = True
-
-        for item in event.project_items:
-            item.archived = True
-
-        for guest in event.guests:
-            guest.archived = True
+        event.budget_items.clear()
+        event.project_items.clear()
 
         db.session.delete(event)
         db.session.commit()
-        
+
         return jsonify(message='Event archived')
     else:
         return jsonify(message='Event not found'), 404
