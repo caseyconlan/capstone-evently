@@ -1,0 +1,5 @@
+CREATE TABLE archived_events (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    date_archived DATETIME NOT NULL
+);

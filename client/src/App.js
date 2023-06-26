@@ -8,12 +8,13 @@ import EventDetails from './EventDetails';
 import Bookkeeping from './Bookkeeping';
 import ToDoList from './ToDoList';
 import ArchivedEvents from './ArchivedEvents';
+import ArchivedEventDetails from './ArchivedEventDetails';
 import { EventProvider } from './EventContext';
 import { AuthContext } from './AuthContext';
 import './App.css';
 
 const App = () => {
-  const { loggedIn, logout } = useContext(AuthContext); 
+  const { loggedIn, logout } = useContext(AuthContext);
 
   return (
     <EventProvider>
@@ -28,11 +29,12 @@ const App = () => {
                 <Route path="/events/:id" component={EventDetails} />
                 <Route path="/bookkeeping" component={Bookkeeping} />
                 <Route path="/todolist" component={ToDoList} />
-                <Route path="/archived-events" component={ArchivedEvents} />
-                </>
-              ) : (
-                 <>
-                <Route exact path="/" component={Login} /> 
+                <Route exact path="/archived-events" component={ArchivedEvents} />
+                <Route path="/archived-events/:id" component={ArchivedEventDetails} />
+              </>
+            ) : (
+              <>
+                <Route exact path="/" component={Login} />
                 <Redirect to="/" />
               </>
             )}

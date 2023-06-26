@@ -132,7 +132,7 @@ const Budget = () => {
           <option value="Decorations">Decorations</option>
           <option value="Entertainment">Entertainment</option>
           <option value="Equipment">Equipment</option>
-          <option value="Favors">Favors</option>
+          <option value="Favors">Favors/Prizes</option>
           <option value="Food">Food</option>
           <option value="Flowers">Flowers</option>
           <option value="Music">Music</option>

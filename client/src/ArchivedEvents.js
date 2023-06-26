@@ -33,7 +33,7 @@ const ArchivedEvents = () => {
       <h1 className="todo-title">Archived Events</h1>
       {archivedEvents.map((event) => (
         <div key={event.id} className="archived-event-tile">
-          <Link to={`/events/${event.id}`}>
+          <Link to={`/archived-events/${event.id}`}>
             <span className="event-name">{event.name}</span>
           </Link>
         </div>

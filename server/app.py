@@ -133,7 +133,14 @@ def update_event(event_id):
 def delete_event(event_id):
     event = Event.query.get(event_id)
     if event:
-        archived_event = ArchivedEvent(name=event.name, date_archived=datetime.now())
+        archived_event = ArchivedEvent(
+            name=event.name,
+            type=event.type,
+            date=event.date,
+            budget_amount=event.budget_amount,
+            target_budget=event.target_budget,
+            date_archived=datetime.now()
+        )
         db.session.add(archived_event)
 
         # Disassociate guests from the event
@@ -373,9 +380,57 @@ def update_guest(event_id, guest_id):
 
 @app.route('/api/events/archived', methods=['GET'])
 def get_archived_events():
-    archived_events = ArchivedEvent.query.all()
-    archived_event_list = [event.to_dict() for event in archived_events]
-    return jsonify(events=archived_event_list)
+    try:
+        # Query the archived events and sort them by the date they were archived
+        archived_events = ArchivedEvent.query.order_by(ArchivedEvent.date_archived.desc()).all()
+        # Convert each archived event to a dictionary
+        archived_event_list = [event.to_dict() for event in archived_events]
+        # Return the list of dictionaries as a JSON response with the key 'events'
+        return jsonify(events=archived_event_list), 200
+    except Exception as e:
+        # If an error occurs, log the error and return a 500 error code with a descriptive message
+        print(f"Error retrieving archived events: {e}")
+        return jsonify(message="There was an error retrieving the archived events"), 500
+
+@app.route('/api/events/archived/<int:id>', methods=['GET'])
+def get_single_archived_event(id):
+    try:
+        event = ArchivedEvent.query.get(id)
+        if event is None:
+            return jsonify(message="Event not found"), 404
+
+        return jsonify(event=event.to_dict()), 200
+    except Exception as e:
+        print(f"Error retrieving archived event: {e}")
+        return jsonify(message="There was an error retrieving the archived event"), 500
+
+@app.route('/api/events/archived/<int:event_id>/vendors', methods=['GET'])
+def get_archived_event_vendors(event_id):
+    try:
+        archived_event = ArchivedEvent.query.get(event_id)
+        if archived_event is None:
+            return jsonify(message="Archived event not found"), 404
+
+        vendors = archived_event.vendors
+        vendor_list = [vendor.to_dict() for vendor in vendors]
+        return jsonify(vendors=vendor_list), 200
+    except Exception as e:
+        print(f"Error retrieving archived event vendors: {e}")
+        return jsonify(message="There was an error retrieving the archived event vendors"), 500
+
+@app.route('/api/events/archived/<int:event_id>/guests', methods=['GET'])
+def get_archived_event_guests(event_id):
+    try:
+        archived_event = ArchivedEvent.query.get(event_id)
+        if archived_event is None:
+            return jsonify(message="Archived event not found"), 404
+
+        guests = archived_event.guests
+        guest_list = [guest.to_dict() for guest in guests]
+        return jsonify(guests=guest_list), 200
+    except Exception as e:
+        print(f"Error retrieving archived event guests: {e}")
+        return jsonify(message="There was an error retrieving the archived event guests"), 500
 
 @app.route('/directory', methods=['POST'])
 def create_entry():

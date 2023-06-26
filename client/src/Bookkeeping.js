@@ -97,71 +97,77 @@ const Bookkeeping = () => {
 
     return (
       <div>
-        <h2>Revenue and Expenses</h2>
-        <VictoryChart>
+        <h1>Revenue and Expenses</h1>
+        <div style={{maxWidth: "800px"}}>
+        <VictoryChart padding={{ top: 20, right: 20, bottom: 50, left: 70 }}>
           <VictoryAxis independentAxis tickFormat={(x) => months[x]} />
           <VictoryAxis dependentAxis tickFormat={(y) => `$${y}`} />
-          <VictoryStack colorScale={['green', 'red']}>
+          <VictoryStack colorScale={['#14A098', '#CB2F6F']}>
             <VictoryBar data={groupedData} x="month" y="revenue" />
             <VictoryBar data={groupedData} x="month" y="expense" />
           </VictoryStack>
         </VictoryChart>
-      </div>
+        </div>
+        </div>
     );
   };
 
   return (
     <div>
-      <h1>Bookkeeping Dashboard</h1>
+      <h1 className="todo-title">Bookkeeping Dashboard</h1>
       <Link to="/" className="add-event-button">Home</Link>
       {renderChart()}
-      
-      <div>
-        <h2>Add Entry</h2>
-        <div>
+
+      <div className="accounting-container-large">
+        <h1 className="todo-title">Add Entry</h1>
+        <div className="accounting-container">
           <h3>Add Revenue</h3>
-          <input
+          <div>
+          <input className="bookkeeping-input"
             type="text"
-            placeholder="Category"
+            placeholder="Description"
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value)}
           />
-          <input
+          <input className="bookkeeping-input"
             type="number"
             placeholder="Amount"
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
           />
-          <input
+          <input className="bookkeeping-input"
             type="number"
             placeholder="Month (1-12)"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
           />
-          <button onClick={() => createBookkeepingEntry('Revenue')}>Add</button>
+          </div>
+          <button className="button-primary" onClick={() => createBookkeepingEntry('Revenue')}>Add</button>
         </div>
 
-        <div>
+        <div className="accounting-container">
           <h3>Add Expense</h3>
-          <input
+          <div>
+          <input className="bookkeeping-input"
             type="text"
-            placeholder="Category"
+            placeholder="Description"
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value)}
           />
-          <input
+          <input className="bookkeeping-input"
             type="number"
             placeholder="Amount"
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
           />
-          <input
+          <input className="bookkeeping-input"
             type="number"
             placeholder="Month (1-12)"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
           />
-          <button onClick={() => createBookkeepingEntry('Expense')}>Add</button>
+          </div>
+          <button className="button-primary" onClick={() => createBookkeepingEntry('Expense')}>Add</button>
         </div>
       </div>
     </div>

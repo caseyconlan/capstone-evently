@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm, CSRFProtect
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
@@ -56,7 +55,7 @@ class Event(db.Model, SerializerMixin):
     # Establish the one-to-many relationship with project items
     project_items = db.relationship('ProjectItem', backref='event', lazy=True)
 
-    guests = db.relationship('Guest', backref='event', lazy=True)
+    guests = db.relationship('Guest', backref='event', lazy=True, cascade="all, delete-orphan")
 
     def get_guests(self):
         # Fetch the guests associated with the event
@@ -77,7 +76,7 @@ class BudgetItem(db.Model):
     name = db.Column(db.String(100), nullable=False)
     cost = db.Column(db.Float, nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-
+    archived_event_id = db.Column(db.Integer, db.ForeignKey('archived_events.id'), nullable=True)
 # ProjectItem model
 class ProjectItem(db.Model):
     __tablename__ = 'project_items'
@@ -86,6 +85,7 @@ class ProjectItem(db.Model):
     name = db.Column(db.String(255))
     status = db.Column(db.String(50), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)  # Add foreign key
+    archived_event_id = db.Column(db.Integer, db.ForeignKey('archived_events.id'), nullable=True)
 
 class Guest(db.Model):
     __tablename__ = 'guests'
@@ -100,9 +100,10 @@ class Guest(db.Model):
     zip = db.Column(db.String(20), nullable=False)
     rsvp = db.Column(db.Integer)
 
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id', ondelete="CASCADE"), nullable=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('guests.id'))
     children = db.relationship('Guest', backref=db.backref('parent', remote_side=[id]))
+    archived_event_id = db.Column(db.Integer, db.ForeignKey('archived_events.id'), nullable=True)
 
     def to_dict(self):
         return {
@@ -144,14 +145,35 @@ class Vendor(db.Model):
         }
 
 class ArchivedEvent(db.Model):
+    __tablename__ = 'archived_events'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(100), nullable=True)
+    date = db.Column(db.DateTime, nullable=True)
+    budget_amount = db.Column(db.Float, default=0.0)
+    target_budget = db.Column(db.Float, default=0.0)
     date_archived = db.Column(db.DateTime, nullable=False)
+    vendors = db.relationship('Vendor', secondary='archived_event_vendor', backref='archived_events')
+    budget_items = db.relationship('BudgetItem', backref='archived_event', lazy=True)
+    project_items = db.relationship('ProjectItem', backref='archived_event', lazy=True)
+    guests = db.relationship('Guest', backref='archived_event', lazy=True)
+
+    def __init__(self, name, type, date, budget_amount, target_budget, date_archived=None):
+        self.name = name
+        self.type = type
+        self.date = date
+        self.budget_amount = budget_amount
+        self.target_budget = target_budget
+        self.date_archived = date_archived or datetime.now()
 
     def to_dict(self):
         return {
             'id': self.id,
             'name': self.name,
+            'type': self.type,
+            'date': self.date.strftime('%Y-%m-%d %H:%M:%S') if self.date else None,
+            'budget_amount': self.budget_amount,
+            'target_budget': self.target_budget,
             'date_archived': self.date_archived.strftime('%Y-%m-%d %H:%M:%S')
         }
 
@@ -187,5 +209,12 @@ class BookkeepingEntry(db.Model):
 event_vendor = db.Table(
     'event_vendor',
     db.Column('event_id', db.Integer, db.ForeignKey('events.id'), primary_key=True),
+    db.Column('vendor_id', db.Integer, db.ForeignKey('vendors.id'), primary_key=True)
+)
+
+# New association table for the many-to-many relationship between archived events and vendors
+archived_event_vendor = db.Table(
+    'archived_event_vendor',
+    db.Column('archived_event_id', db.Integer, db.ForeignKey('archived_events.id'), primary_key=True),
     db.Column('vendor_id', db.Integer, db.ForeignKey('vendors.id'), primary_key=True)
 )
