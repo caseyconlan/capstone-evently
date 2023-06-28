@@ -37,16 +37,16 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
   };
 
   return (
-    <div className="add-vendor-container">
+    <div className="add-guest-container">
       <h1>Add Vendor</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input className="vendor-input" type="text" name="name" value={vendorData.name} onChange={handleInputChange} />
+          <input className="login-field" type="text" name="name" value={vendorData.name} onChange={handleInputChange} />
         </label>
         <label>
           Product/Service:
-          <input className="vendor-input"
+          <input className="login-field"
             type="text"
             name="product_service"
             value={vendorData.product_service}
@@ -55,7 +55,7 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
         </label>
         <label>
           Category:
-          <select className="vendor-input" name="category" value={vendorData.category} onChange={handleInputChange}>
+          <select className="login-field" name="category" value={vendorData.category} onChange={handleInputChange}>
             <option value="">Select a category</option>
             <option value="Attire">Attire</option>
             <option value="Advertising">Advertising</option>
@@ -77,7 +77,7 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
         </label>
         <label>
           Contact Person:
-          <input className="vendor-input"
+          <input className="login-field"
             type="text"
             name="contact_person"
             value={vendorData.contact_person}
@@ -86,15 +86,15 @@ const AddVendorForm = ({ eventId, onVendorAdded }) => {
         </label>
         <label>
           Phone:
-          <input className="vendor-input" type="text" name="phone" value={vendorData.phone} onChange={handleInputChange} />
+          <input className="login-field" type="text" name="phone" value={vendorData.phone} onChange={handleInputChange} />
         </label>
         <label>
           Email:
-          <input className="vendor-input" type="text" name="email" value={vendorData.email} onChange={handleInputChange} />
+          <input className="login-field" type="text" name="email" value={vendorData.email} onChange={handleInputChange} />
         </label>
         <label>
           Address:
-          <input className="vendor-input" type="text" name="address" value={vendorData.address} onChange={handleInputChange} />
+          <input className="login-field" type="text" name="address" value={vendorData.address} onChange={handleInputChange} />
         </label>
         <button className="add-vendor-button" type="submit">Add Vendor</button>
       </form>

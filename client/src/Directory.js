@@ -67,11 +67,12 @@ const Directory = () => {
     <div className="directory-container">
       <h1 className="todo-title">Directory</h1>
       <Link to="/" className="add-event-button">Home</Link>
-      <h1>Add Entry</h1>
+      <div align="center">
+      <h2 className="event-title">Add Entry</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="date-field">
           <label htmlFor="type">Type:</label>
-          <select
+          <select className="login-field"
             id="type"
             value={type}
             onChange={e => setType(e.target.value)}
@@ -83,7 +84,7 @@ const Directory = () => {
         </div>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
-          <input
+          <input className="date-field"
             type="text"
             id="name"
             value={name}
@@ -92,7 +93,7 @@ const Directory = () => {
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone:</label>
-          <input
+          <input className="date-field"
             type="text"
             id="phone"
             value={phone}
@@ -101,7 +102,7 @@ const Directory = () => {
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
-          <input
+          <input className="date-field"
             type="email"
             id="email"
             value={email}
@@ -110,7 +111,7 @@ const Directory = () => {
         </div>
         <div className="form-group">
           <label htmlFor="address">Address:</label>
-          <input
+          <input className="date-field"
             type="address"
             id="address"
             value={address}
@@ -119,7 +120,7 @@ const Directory = () => {
         </div>
         <div className="form-group">
           <label htmlFor="notes">Notes:</label>
-          <textarea
+          <textarea className="date-field"
             id="notes"
             value={notes}
             onChange={e => setNotes(e.target.value)}
@@ -127,8 +128,9 @@ const Directory = () => {
         </div>
         <button type="submit">Add</button>
       </form>
+      </div>
 
-      <h2>Directory</h2>
+      <h2 className="event-title">Directory</h2>
       {directoryEntries.length > 0 ? (
         <table className="directory-table">
           <thead>

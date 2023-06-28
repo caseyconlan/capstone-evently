@@ -85,27 +85,26 @@ const GuestList = ({ eventId }) => {
       <div className="add-guest-container">
         <h1>Add Guest</h1>
         <label>Title:</label>
-        <input className="vendor-input" type="text" value={guestTitle} onChange={(e) => setGuestTitle(e.target.value)} />
+        <input className="login-field" type="text" value={guestTitle} onChange={(e) => setGuestTitle(e.target.value)} />
         <label>First Name:</label>
-        <input className="vendor-input" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <input className="login-field" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
         <label>Last Name:</label>
-        <input className="vendor-input" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+        <input className="login-field" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
         <label>Address:</label>
-        <input className="vendor-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+        <input className="login-field" type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
         <label>City:</label>
-        <input className="vendor-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+        <input className="login-field" type="text" value={city} onChange={(e) => setCity(e.target.value)} />
         <label>State:</label>
-        <input className="vendor-input" type="text" value={state} onChange={(e) => setState(e.target.value)} />
+        <input className="login-field" type="text" value={state} onChange={(e) => setState(e.target.value)} />
         <label>Zip:</label>
-        <input className="vendor-input" type="text" value={zip} onChange={(e) => setZip(e.target.value)} />
+        <input className="login-field" type="text" value={zip} onChange={(e) => setZip(e.target.value)} />
         <label>RSVP:</label>
-        <input className="vendor-input" type="text" value={rsvp} onChange={(e) => setRsvp(e.target.value)} />
+        <input className="login-field" type="text" value={rsvp} onChange={(e) => setRsvp(e.target.value)} />
         <button className="add-guest-button" onClick={handleAddGuest}>Add Guest</button>
       </div>
-      <div>
         <div className="Guest-List-Container">
         <h1>Guests</h1>
-        <table className="guest-table">
+        <table className="guest-list-table">
           <thead>
             <tr>
               <th>Title</th>
@@ -129,13 +128,12 @@ const GuestList = ({ eventId }) => {
                 <td>{guest.state}</td>
                 <td>{guest.zip}</td>
                 <td>
-                  <input type="number" min="0" value={guest.rsvp || 0} onChange={(e) => handleRsvpChange(guest.id, e.target.value)} />
+                  <input className="login-field" type="number" min="0" value={guest.rsvp || 0} onChange={(e) => handleRsvpChange(guest.id, e.target.value)} />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        </div>
       </div>
     </div>
   );

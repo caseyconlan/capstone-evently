@@ -55,6 +55,7 @@ const VendorList = ({ eventId }) => {
     <div className="vendor-list">
       <AddVendorForm eventId={eventId} onVendorAdded={handleVendorAdded} />
       {vendors.map((vendor) => (
+        <div>
         <div className="vendor-tile" key={vendor.id}>
           <h3 className="vendor-name">{vendor.name}</h3>
           <p className="vendor-info">Product/Service: {vendor.product_service}</p>
@@ -64,11 +65,12 @@ const VendorList = ({ eventId }) => {
           <p className="vendor-info">Email: {vendor.email}</p>
           <p className="vendor-info">Address: {vendor.address}</p>
           <button
-            className="delete-button"
+            className="add-event-button"
             onClick={() => handleVendorDeleted(vendor.id)}
           >
             Delete
           </button>
+        </div>
         </div>
       ))}
     </div>

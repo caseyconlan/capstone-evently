@@ -31,6 +31,8 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    justify-content: center;
+    align-items: center;
   }
   
   .add-guest-section {
@@ -64,10 +66,13 @@ body {
     margin-left: 10px;
     margin-right: 10px;
     padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     background-color: #CCCCCC;
     border: 5px solid #501F3A;
     border-radius: 4px;
     text-align: center;
+    justify-content: center;
   }
 
   .guests-section {
@@ -173,6 +178,8 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   
   .add-event-button:hover {
@@ -192,6 +199,7 @@ body {
   }
   
   .vendor-tile {
+    size: 50%;
     background-color: #0F292F;
     padding: 20px;
     border-radius: 8px;
@@ -417,6 +425,10 @@ body {
     text-align: center;
   }
 
+  .ribbon-2 {
+    margin-left: 25px;
+  }
+
   .section {
     background: var(--accent-color);
     padding: 20px;
@@ -566,6 +578,30 @@ body {
     background-color: #9c9c9c;
   }
   
+  .guest-list-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .guest-list-table th,
+  .guest-list-table td {
+    padding: 10px;
+    border: 1px solid var(--dark-color);
+  }
+  
+  .guest-list-table th {
+    background-color: var(--dark-color);
+    color: var(--accent-color);
+  }
+  
+  .guest-list-table tr:nth-child(even) {
+    background-color: var(--accent-color);
+  }
+  
+  .guest-list-table tr:nth-child(odd) {
+    background-color: #9c9c9c;
+  }
+
   .form-group {
     margin-bottom: 10px;
   }
@@ -661,7 +697,8 @@ body {
   margin-bottom: 15px;
   margin-left: 50px;
   margin-right: 50px;
-  color: var(--primary-color)
+  color: var(--primary-color);
+  border: var(--primary-color);
 }
 
 .budget-input {
@@ -671,7 +708,8 @@ body {
   margin-bottom: 15px;
   margin-left: 50px;
   margin-right: 50px;
-  color: var(--primary-color)
+  color: var(--primary-color);
+  border: var(--primary-color);
 }
 
 .form-submit {
@@ -702,7 +740,19 @@ body {
 
 .login-field {
   width: 100%;
-  margin-left: 10px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: var(--success-color);
+  border-width: 5px;
+}
+
+.date-field {
+  width: 25%;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: var(--success-color);
+  border-width: 5px;
 }
 
 .container {
@@ -813,7 +863,7 @@ p {
 
 .event-title {
   color: #0F292F;
-  font-size: 48px;
+  font-size: 36px;
 }
 
 .todo-title {
@@ -867,7 +917,7 @@ p {
 .accounting-container-large {
     width: 90%;
     margin: 100px 50px;
-    padding: 20px;
+    padding: 10px;
     background-color: var(--success-color);
     border: 5px solid var(--primary-color);
     border-radius: 4px;
@@ -875,4 +925,54 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.directory-container-large {
+  width: 90%;
+  margin: 100px 50px;
+  padding: 10px;
+  background-color: var(--success-color);
+  border: 5px solid var(--primary-color);
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  width: 75%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  border-width: 20px;
+  border-radius: 20px;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.table th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.table tr:hover {
+  background-color: var(--dark-color);
+  cursor: pointer;
+}
+
+.table .revenue-entry {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.table .expense-entry {
+  background-color: var(--secondary-color);
+  color: white;
 }

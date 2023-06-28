@@ -89,17 +89,19 @@ const EventDetails = () => {
       <h1 className="event-title">{event.name}</h1>
       {formattedDate && <h1>Date: {formattedDate}</h1>}
       <h1>Countdown: {countdown}</h1>
-      <Link to="/" className="add-event-button">Home</Link>
       <h2 className="event-text">Event ID: {id}</h2>
+      <Link to="/" className="add-event-button">Home</Link>
       <div className="event-date">
-        <h1>Event Date</h1>
+        <h1 className="event-title">Event Date</h1>
         {editEventId === event.id ? (
           <div>
-            <input
+            <div>
+            <input style={{ width: '200px', height: '50px', font: '48px'}} className="date-field"
               type="date"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
             />
+            </div>
             <button className="button-primary" onClick={() => handleSaveEdit(event.id)}>Save</button>
             <button className="button-primary" onClick={handleCancelEdit}>Cancel</button>
           </div>

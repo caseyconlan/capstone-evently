@@ -107,10 +107,10 @@ const EventList = () => {
                   value={editedEventName}
                   onChange={(e) => setEditedEventName(e.target.value)}
                 />
-                <button className="save-event-button" onClick={() => handleSaveEdit(event.id)}>
+                <button className="add-event-button" onClick={() => handleSaveEdit(event.id)}>
                   Save
                 </button>
-                <button className="cancel-event-button" onClick={handleCancelEdit}>
+                <button className="add-event-button" onClick={handleCancelEdit}>
                   Cancel
                 </button>
               </div>
@@ -120,13 +120,13 @@ const EventList = () => {
                   <span className="event-name">{event.name}</span>
                 </Link>
                 <div className="event-actions">
-                  <button className="edit-event-button" onClick={() => handleEditEvent(event.id, event.name)}>
+                  <button className="add-event-button" onClick={() => handleEditEvent(event.id, event.name)}>
                     Edit Event Name
                   </button>
-                  <button className="delete-event-button" onClick={() => handleDeleteEvent(event.id)}>
+                  <button className="add-event-button" onClick={() => handleDeleteEvent(event.id)}>
                     Delete Event
                   </button>
-                  <button className="archive-event-button" onClick={() => handleArchiveEvent(event.id)}>
+                  <button className="add-event-button" onClick={() => handleArchiveEvent(event.id)}>
                     Archive Event
                   </button>
                 </div>

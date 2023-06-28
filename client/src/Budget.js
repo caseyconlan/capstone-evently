@@ -92,7 +92,7 @@ const Budget = () => {
 
   return (
     <div className="budget-container">
-      <h1>Budget</h1>
+      <h1 className="event-title">Budget</h1>
       <h2 className="event-text">Target Budget: ${targetBudget}</h2>
       <div>
         <h3>Set Target Budget</h3>
@@ -148,10 +148,13 @@ const Budget = () => {
           value={costVendor}
           onChange={(e) => setCostVendor(e.target.value)}
         />
+        <div>
         <button className="add-event-button" onClick={handleAddCost}>
           Add Cost
         </button>
+        </div>
       </div>
+      <div align="center">
       <div className="costs-container">
         <h1>Costs</h1>
         <table className="costs-table">
@@ -174,10 +177,13 @@ const Budget = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
       <div>
         <h1>Total Budget: ${totalBudget}</h1>
         <h1>Remaining Budget: ${targetBudget-totalBudget}</h1>
+        <div align="center">
+        <div style={{ maxWidth: '700px' }}>
         <VictoryPie
           data={[
             ...costs,
@@ -186,6 +192,8 @@ const Budget = () => {
           y="amount"
           colorScale={["magenta", "navy", "beige", "teal", "midnight", "purple", "cyan", "lilac", "pink", "blue", "white", "gray"]}
         />
+        </div>
+        </div>
       </div>
     </div>
   );
