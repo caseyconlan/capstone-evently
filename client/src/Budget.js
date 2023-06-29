@@ -126,20 +126,22 @@ const Budget = () => {
         >
           <option value="">Select a category</option>
           <option value="Attire">Attire</option>
-          <option value="Advertising">Advertising</option>
-          <option value="Cleanup">Communications</option>
-          <option value="Communications">Communications</option>
-          <option value="Decorations">Decorations</option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Equipment">Equipment</option>
-          <option value="Favors">Favors/Prizes</option>
+          <option value="Marketing">Mktg</option>
+          <option value="Cleanup">Cleanup</option>
+          <option value="Communications">Comm</option>
+          <option value="Decorations">Decor</option>
+          <option value="Entertainment">Entm't</option>
+          <option value="Equipment">Equip</option>
+          <option value="Favors">Favors</option>
           <option value="Food">Food</option>
           <option value="Flowers">Flowers</option>
           <option value="Music">Music</option>
-          <option value="Photography/Videography">Photography/Videography</option>
+          <option value="Photography">Photo</option>
+          <option value="Prizes">Prizes</option>
           <option value="Stationary">Stationary</option>
-          <option value="Transportation">Transportation</option>
+          <option value="Transportation">Transport</option>
           <option value="Venue">Venue</option>
+          <option value="Videography">Video</option>
           <option value="Other">Other</option>
         </select>
         <input className="form-input"

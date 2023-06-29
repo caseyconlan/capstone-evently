@@ -6,6 +6,7 @@
     --accent-color: white;
     --success-color: #e2d810;
     --dark-color: #322e2f;
+    --table-color: #cdcdcd;
   }
 
 body {
@@ -74,6 +75,15 @@ body {
     border-radius: 4px;
     text-align: center;
     justify-content: center;
+  }
+
+  .add-directory-container {
+    max-width: 50%;
+    padding-bottom: 5px;
+    background-color: var(--success-color);
+    border: 5px solid var(--success-color);
+    justify-content: center;
+    align-items: center;
   }
 
   .guests-section {
@@ -201,13 +211,13 @@ body {
   
   .vendor-tile {
     size: 50%;
-    background-color: var(--dark-color);
+    background-color: var(--success-color);
     padding: 20px;
     border-radius: 8px;
   }
   
   .vendor-name {
-    color: var(--accent-color);
+    color: var(--dark-color);
     font-weight: bold;
   }
   
@@ -226,11 +236,11 @@ body {
     margin-bottom: 15px;
     margin-left: 50px;
     margin-right: 50px;
-    color: var(--primary-color)
+    color: var(--dark-color)
   }
 
   .vendor-info {
-    color: var(--accent-color);
+    color: var(--dark-color);
   }
   
   .guest-list {
@@ -250,7 +260,7 @@ body {
   .guest-input {
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #6d597a;
+    border: 1px solid var(--dark-color);
   }
   
   .add-guest-button {
@@ -535,6 +545,11 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+  .nav-links:hover {
+    color: var(--dark-color)
+  }
+
   
   .route-links {
     position: absolute;
@@ -546,6 +561,10 @@ body {
     color: var(--accent-color);
     font-size: 24px;
     font-weight: bold;
+  }
+
+  .route-links:hover {
+    color: var(--dark-color)
   }
 
   .directory-container {
@@ -576,12 +595,13 @@ body {
   }
   
   .directory-table tr:nth-child(odd) {
-    background-color: #ffffb3;
+    background-color: var(--table-color);
   }
   
   .guest-list-table {
-    width: 100%;
+    width: 60%;
     border-collapse: collapse;
+    height: 10px;
   }
   
   .guest-list-table th,
@@ -600,7 +620,7 @@ body {
   }
   
   .guest-list-table tr:nth-child(odd) {
-    background-color: #9c9c9c;
+    background-color: var(--table-color);
   }
 
   .form-group {
@@ -698,7 +718,7 @@ body {
   margin-bottom: 15px;
   margin-left: 50px;
   margin-right: 50px;
-  color: var(--primary-color);
+  color: var(--dark-color);
   border: 1px solid var(--dark-color);
 }
 
@@ -752,7 +772,13 @@ body {
   width: 25%;
   margin: 8px 0;
   box-sizing: border-box;
-  border: var(--success-color);
+  border: 1px solid var(--dark-color);
+}
+
+.directory-field {
+  width: 90%;
+  margin: 8px 0;
+  box-sizing: border-box;
   border: 1px solid var(--dark-color);
 }
 

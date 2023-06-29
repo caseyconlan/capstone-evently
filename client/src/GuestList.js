@@ -102,8 +102,8 @@ const GuestList = ({ eventId }) => {
         <input className="login-field" type="text" value={rsvp} onChange={(e) => setRsvp(e.target.value)} />
         <button className="add-guest-button" onClick={handleAddGuest}>Add Guest</button>
       </div>
-        <div className="Guest-List-Container">
-        <h1>Guests</h1>
+        {/* <div className="Guest-List-Container"> */}
+        {/* <h1>Guests</h1> */}
         <table className="guest-list-table">
           <thead>
             <tr>
@@ -135,7 +135,7 @@ const GuestList = ({ eventId }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    // </div>
   );
 };
 
