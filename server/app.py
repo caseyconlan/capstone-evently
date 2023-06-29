@@ -77,6 +77,35 @@ def create_new_user():
 
     return jsonify(message='New user created'), 201
 
+# Update password route
+@app.route('/update-password', methods=['PATCH'])
+def update_password():
+    username = request.json.get('username')
+    new_password = request.json.get('new_password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        user.set_password(new_password)
+        db.session.commit()
+        return jsonify(message='Password updated'), 200
+    else:
+        return jsonify(message='Username not found'), 404
+
+@app.route('/delete-account', methods=['DELETE'])
+def delete_account():
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if user and user.check_password(password):
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify(message='Account deleted successfully'), 200
+    else:
+        return jsonify(message='Invalid username or password'), 401
+
 # Home route
 @app.route('/')
 def home():

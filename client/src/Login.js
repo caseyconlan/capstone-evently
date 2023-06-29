@@ -126,31 +126,18 @@ const Login = () => {
   const handleForgotPassword = (e) => {
     e.preventDefault();
 
+    const new_password = window.prompt('Enter a new password:');
+
+    // Update the password on the server
     axios
-        .post("/forgot-password", { username }, {
+        .patch("/update-password", { username, new_password }, {
             headers: {
                 "X-CSRF-Token": csrfToken,
                 "Content-Type": "application/json",
             },
         })
         .then((response) => {
-            // Prompt the user to enter a new password
-            const new_password = window.prompt('Enter a new password:');
-
-            // Update the password on the server
-            axios
-                .patch("/update-password", { username, new_password }, {
-                    headers: {
-                        "X-CSRF-Token": csrfToken,
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            console.log(response.data);
         })
         .catch((error) => {
             console.log(error);
@@ -160,31 +147,31 @@ const Login = () => {
 const handleDeleteAccount = (e) => {
   e.preventDefault();
 
-  const requestData = {
-    username,
-    password,
-  };
+  const confirmation = window.confirm('Are you sure you want to delete your account? This action cannot be undone.');
 
-  const headers = {
-    "X-CSRF-Token": csrfToken,
-    "Content-Type": "application/json",
-  };
+  if (!confirmation) {
+      return;
+  }
 
   axios
-    .post("/delete-account", requestData, {
-      headers,
-      withCredentials: true,
-    })
-    .then((response) => {
-      if (response.data.message === 'Account deleted successfully') {
-        setLoggedIn(false);
-      } else {
-        console.log('Invalid username or password');
-      }
-    })
-    .catch((error) => {
-      console.log('Delete account error:', error);
-    });
+      .delete("/delete-account", { data: { username, password } }, {
+          headers: {
+              "X-CSRF-Token": csrfToken,
+              "Content-Type": "application/json",
+          },
+      })
+      .then((response) => {
+          if (response.data.message === 'Account deleted successfully') {
+              console.log(response.data.message);
+              // Here you could do something to remove the user's data from the frontend
+              setLoggedIn(false);  // assuming you have a way to handle logging out
+          } else {
+              console.log('Invalid username or password');
+          }
+      })
+      .catch((error) => {
+          console.log('Delete account error:', error);
+      });
 };
 
   const renderNewUserForm = () => (
