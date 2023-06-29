@@ -187,10 +187,11 @@ const Budget = () => {
         <VictoryPie
           data={[
             ...costs,
+            { category: 'Remaining Budget', amount: remainingBudget },
           ]}
           x="category"
           y="amount"
-          colorScale={["magenta", "navy", "beige", "teal", "midnight", "purple", "cyan", "lilac", "pink", "blue", "white", "gray"]}
+          colorScale="qualitative"
         />
         </div>
         </div>

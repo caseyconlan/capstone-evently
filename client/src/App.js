@@ -9,6 +9,7 @@ import Bookkeeping from './Bookkeeping';
 import ToDoList from './ToDoList';
 import ArchivedEvents from './ArchivedEvents';
 import ArchivedEventDetails from './ArchivedEventDetails';
+import ProjectPlan from './ProjectPlan';
 import { EventProvider } from './EventContext';
 import { AuthContext } from './AuthContext';
 import './App.css';
@@ -31,6 +32,7 @@ const App = () => {
                 <Route path="/todolist" component={ToDoList} />
                 <Route exact path="/archived-events" component={ArchivedEvents} />
                 <Route path="/archived-events/:id" component={ArchivedEventDetails} />
+                <Route exact path="/projectplan" component={ProjectPlan} />
               </>
             ) : (
               <>

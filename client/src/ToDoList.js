@@ -102,7 +102,7 @@ const todoList = () => {
       <Link to="/" className="add-event-button">Home</Link>
     </div>
     <div className="section">
-        <h4 style={{ color: 'var(--primary-color)'}}>Kick Off Items</h4>
+        <h4 style={{ color: 'var(--dark-color)'}}>Kick Off Items</h4>
         <ul className="todo-list">
           {todoKickoff.map((item, index) => (
             <React.Fragment key={index}>{indentItem(item)}</React.Fragment>
@@ -110,7 +110,7 @@ const todoList = () => {
         </ul>
       </div>
       <div className="section">
-        <h4 style={{ color: 'var(--primary-color)' }}>Financial Items</h4>
+        <h4 style={{ color: 'var(--dark-color)' }}>Financial Items</h4>
         <ul className="todo-list">
           {todoFinance.map((item, index) => (
             <React.Fragment key={index}>{indentItem(item)}</React.Fragment>
@@ -118,7 +118,7 @@ const todoList = () => {
         </ul>
       </div>
       <div className="section">
-        <h4 style={{ color: 'var(--primary-color)' }}>Logistical Items</h4>
+        <h4 style={{ color: 'var(--dark-color)' }}>Logistical Items</h4>
         <ul className="todo-list">
           {todoLogistics.map((item, index) => (
             <React.Fragment key={index}>{indentItem(item)}</React.Fragment>
@@ -126,7 +126,7 @@ const todoList = () => {
         </ul>
       </div>
       <div className="section">
-        <h4 style={{ color: 'var(--primary-color)' }}>Vendor Items</h4>
+        <h4 style={{ color: 'var(--dark-color)' }}>Vendor Items</h4>
         <ul className="todo-list">
           {todoVendors.map((item, index) => (
             <React.Fragment key={index}>{indentItem(item)}</React.Fragment>

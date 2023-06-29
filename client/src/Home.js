@@ -19,6 +19,7 @@ const Home = () => {
         <Link className="nav-links" to="/bookkeeping">Bookkeeping</Link>
         <Link className="nav-links" to="/todolist">To Do List</Link> 
         <Link className="nav-links" to="/archived-events">Archived Events</Link>
+        {/* <Link className="nav-links" to="/projectplan">Project Plan</Link> */}
         {loggedIn && (
           <button className="nav-links" onClick={handleLogout}>
             Logout

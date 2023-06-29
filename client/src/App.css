@@ -1,29 +1,30 @@
 /* App.css */
+
 :root {
-    --primary-color: #501F3A;
-    --secondary-color: #CB2D6F;
-    --accent-color: #CCCCCC;
-    --success-color: #14A098;
-    --dark-color: #0F292F;
+    --primary-color: #12a4d9;
+    --secondary-color: #d9138a;
+    --accent-color: white;
+    --success-color: #e2d810;
+    --dark-color: #322e2f;
   }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #CCCCCC;
+    background-color: var(--accent-color);
   }
   
   .content-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #0F292F;
-    border: 1px solid #ccc;
+    background-color: var(--dark-color);
+    border: 1px solid var(--accent-color);
     border-radius: 4px;
     justify-content: center;
     align-items: center;
-    text-decoration-color: #0F292F;
+    text-decoration-color: var(--dark-color);
   }
 
 
@@ -40,7 +41,7 @@ body {
   }
   
   .add-guest-section h3 {
-    color: #0F292F;
+    color: var(--dark-color);
     font-size: 20px;
   }
   
@@ -55,7 +56,7 @@ body {
   .add-guest-section select {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--accent-color);
     border-radius: 4px;
     margin-bottom: 10px;
   }
@@ -68,8 +69,8 @@ body {
     padding: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    background-color: #CCCCCC;
-    border: 5px solid #501F3A;
+    background-color: var(--accent-color);
+    border: 5px solid var(--primary-color);
     border-radius: 4px;
     text-align: center;
     justify-content: center;
@@ -82,7 +83,7 @@ body {
   }
   
   .guests-section h3 {
-    color: #0F292F;
+    color: var(--dark-color);
     font-size: 20px;
     justify-content: center;
     align-items: center;
@@ -98,7 +99,7 @@ body {
   .guest-table th,
   .guest-table td {
     padding: 8px;
-    border-bottom: 1px solid #501F3A;
+    border-bottom: 1px solid var(--primary-color);
     text-align: left;
     justify-content: center;
     align-items: center;
@@ -112,8 +113,8 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     padding: 20px;
-    background-color: #CCCCCC;
-    border: 5px solid #501F3A;
+    background-color: var(--accent-color);
+    border: 5px solid var(--primary-color);
     border-radius: 4px;
     text-align: center;
     justify-content: center;
@@ -134,7 +135,7 @@ body {
   }
   
   .event-tile {
-    background-color: #14A098;
+    background-color: var(--success-color);
     padding: 20px;
     border-radius: 8px;
     justify-content: center;
@@ -142,7 +143,7 @@ body {
   }
   
   .event-name {
-    color: #501F3A;
+    color: var(--dark-color);
     font-weight: bold;
     font-size: 22px;
   }
@@ -157,21 +158,21 @@ body {
   .event-input {
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #0F292F;
+    border: 1px solid var(--dark-color);
   }
 
   .bookkeeping-input {
     max-width: 50%;
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #0F292F;
+    border: 1px solid var(--dark-color);
     margin: 5px;
   }
   
   .add-event-button {
     padding: 8px 16px;
     background-color: #CB2F6F;
-    color: #CCCCCC;
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -183,7 +184,7 @@ body {
   }
   
   .add-event-button:hover {
-    background-color: #501F3A;
+    background-color: var(--primary-color);
   }
 
   .add-event {
@@ -200,13 +201,13 @@ body {
   
   .vendor-tile {
     size: 50%;
-    background-color: #0F292F;
+    background-color: var(--dark-color);
     padding: 20px;
     border-radius: 8px;
   }
   
   .vendor-name {
-    color: #CCCCCC;
+    color: var(--accent-color);
     font-weight: bold;
   }
   
@@ -229,7 +230,7 @@ body {
   }
 
   .vendor-info {
-    color: #CCCCCC;
+    color: var(--accent-color);
   }
   
   .guest-list {
@@ -255,7 +256,7 @@ body {
   .add-guest-button {
     padding: 8px 16px;
     background-color: #CB2F6F;
-    color: #cccccc;
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -263,7 +264,7 @@ body {
   }
   
   .add-guest-button:hover {
-    background-color: #501F3A;
+    background-color: var(--primary-color);
   }
   .add-vendor-form {
     padding: 20px;
@@ -274,7 +275,7 @@ body {
   
   .add-vendor-form h3 {
     margin-bottom: 10px;
-    color: #0F292F;
+    color: var(--dark-color);
     size: 18px;
   }
   
@@ -307,7 +308,7 @@ body {
   .add-vendor-button {
     padding: 8px 16px;
     background-color: #CB2F6F;
-    color: #cccccc;
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -315,26 +316,26 @@ body {
   }
 
   .add-vendor-button:hover {
-    background-color: #501F3A;
+    background-color: var(--primary-color);
   }
   
   .button-primary {
     padding: 8px 16px;
     background-color: #CB2F6F;
-    color: #CCCCCC;
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
   }
 
   .button-primary:hover {
-    background-color: #501F3A;
+    background-color: var(--primary-color);
   }
 
   .edit-event-button {
     padding: 8px 16px;
     background-color: #CB2F6F;
-    color: #CCCCCC;
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -343,13 +344,13 @@ body {
   }
 
   .edit-event-button:hover {
-    background-color: #501F3A;
+    background-color: var(--primary-color);
   }
 
   .delete-event-button {
     padding: 8px 16px;
     background-color: #CB2F6F;
-    color: #CCCCCC;
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -358,13 +359,13 @@ body {
   }
 
   .delete-event-button:hover {
-    background-color: #501F3A;
+    background-color: var(--primary-color);
   }
 
   .archive-event-button {
     padding: 8px 16px;
     background-color: #CB2F6F;
-    color: #CCCCCC;
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -373,15 +374,15 @@ body {
   }
 
   .archive-event-button:hover {
-    background-color: #501F3A;
+    background-color: var(--primary-color);
   }
 
   .add-vendor-container {
     max-width: 100%;
     margin: 20px auto;
     padding: 20px;
-    background-color: #CCCCCC;
-    border: 5px solid #501F3A;
+    background-color: var(--accent-color);
+    border: 5px solid var(--primary-color);
     border-radius: 4px;
     text-align: center;
   }
@@ -394,8 +395,8 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     padding: 20px;
-    background-color: #CCCCCC;
-    border: 5px solid #501F3A;
+    background-color: var(--accent-color);
+    border: 5px solid var(--primary-color);
     border-radius: 4px;
     text-align: center;
     justify-content: center;
@@ -419,7 +420,7 @@ body {
     width: 100%;
     background: var(--accent-color);
     padding: 5px;
-    color: #CCCCCC;
+    color: var(--accent-color);
     font-size: 48px;
     font-weight: bold;
     text-align: center;
@@ -432,7 +433,7 @@ body {
   .section {
     background: var(--accent-color);
     padding: 20px;
-    color: var(--primary-color);
+    color: var(--dark-color);
     border-radius: 10px;
     margin-top: 150px;
   }
@@ -484,7 +485,7 @@ body {
     display: inline-block;
     vertical-align: middle;
     margin-left: 10px;
-    color: var(--primary-color);
+    color: var(--dark-color);
     font-size: 16px;
     font-weight: bold;
   }
@@ -524,8 +525,8 @@ body {
 
   .nav-links {
     padding: 8px 16px;
-    background-color: #501F3A;
-    color: #CCCCCC;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -542,14 +543,14 @@ body {
     width: 100%;
     background: var(--primary-color);
     padding: 10px;
-    color: #CCCCCC;
+    color: var(--accent-color);
     font-size: 24px;
     font-weight: bold;
   }
 
   .directory-container {
     background-color: var(--accent-color);
-    color: var(--primary-color);
+    color: var(--dark-color);
     padding: 20px;
   }
   
@@ -575,7 +576,7 @@ body {
   }
   
   .directory-table tr:nth-child(odd) {
-    background-color: #9c9c9c;
+    background-color: #ffffb3;
   }
   
   .guest-list-table {
@@ -623,7 +624,7 @@ body {
   button[type="submit"] {
     padding: 10px 20px;
     background-color: var(--secondary-color);
-    color: #CCCCCC;
+    color: var(--accent-color);
     border: none;
     cursor: pointer;
     justify-content: center;
@@ -636,7 +637,7 @@ body {
 
   .archived-events {
     background-color: var(--success-color);
-    color: white;
+    color: var(--accent-color);
     padding: 20px;
   }
   
@@ -648,13 +649,13 @@ body {
     display: block;
     padding: 10px;
     background-color: var(--accent-color);
-    color: white;
+    color: var(--accent-color);
     text-decoration: none;
     transition: background-color 0.3s ease;
   }
   
   .archived-event-tile a:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
   }
   
   .archive-text {
@@ -670,7 +671,7 @@ body {
   justify-content: center;
   text-align: center;
   margin-top: 100px;
-  color: var(--primary-color)
+  color: var(--dark-color)
 }
 
 .description {
@@ -679,7 +680,7 @@ body {
   justify-content: center;
   text-align: center;
   margin: 10px;
-  color: var(--primary-color)
+  color: var(--dark-color)
 }
 
 .form-label {
@@ -698,7 +699,7 @@ body {
   margin-left: 50px;
   margin-right: 50px;
   color: var(--primary-color);
-  border: var(--primary-color);
+  border: 1px solid var(--dark-color);
 }
 
 .budget-input {
@@ -709,12 +710,12 @@ body {
   margin-left: 50px;
   margin-right: 50px;
   color: var(--primary-color);
-  border: var(--primary-color);
+  border: 1px solid var(--dark-color);
 }
 
 .form-submit {
-  background-color: #CB2D6F;
-  color: #CCCCCC;
+  background-color: var(--secondary-color);
+  color: var(--accent-color);
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -724,7 +725,7 @@ body {
 .button-login {
   padding: 10px 20px;
   background-color: var(--secondary-color);
-  color: #CCCCCC;
+  color: var(--accent-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -735,7 +736,7 @@ body {
 }
 
 .button-login:hover {
-  background-color: #501F3A;
+  background-color: var(--primary-color);
 }
 
 .login-field {
@@ -743,7 +744,7 @@ body {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: var(--success-color);
+  border: 1px solid var(--dark-color);
   border-width: 5px;
 }
 
@@ -752,7 +753,7 @@ body {
   margin: 8px 0;
   box-sizing: border-box;
   border: var(--success-color);
-  border-width: 5px;
+  border: 1px solid var(--dark-color);
 }
 
 .container {
@@ -770,7 +771,7 @@ body {
 
 .button-primary {
   background-color: var(--secondary-color);
-  color: #CCCCCC;
+  color: var(--accent-color);
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -782,7 +783,7 @@ body {
 
 .event-details {
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;;
 }
 
 h1 {
@@ -802,7 +803,7 @@ p {
 .add-event-button {
   display: inline-block;
   background-color: var(--secondary-color);
-  color: #CCCCCC;
+  color: var(--accent-color);
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -819,8 +820,8 @@ p {
   padding-left: 20px;
   padding-right: 20px;
   padding: 20px;
-  background-color: #CCCCCC;
-  border: 5px solid #501F3A;
+  background-color: var(--accent-color);
+  border: 5px solid var(--primary-color);
   border-radius: 4px;
   text-align: center;
   justify-content: center;
@@ -829,7 +830,7 @@ p {
 
 .button-primary {
   background-color: var(--secondary-color);
-  color: #CCCCCC;
+  color: var(--accent-color);
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -839,7 +840,7 @@ p {
 }
 
 .event-text {
-    color: #0F292F;
+    color: var(--dark-color);
     font-size: 20px;
     justify-content: center;
     align-items: center;
@@ -853,8 +854,8 @@ p {
   padding-left: 20px;
   padding-right: 20px;
   padding: 20px;
-  background-color: #CCCCCC;
-  border: 5px solid #501F3A;
+  background-color: var(--accent-color);
+  border: 5px solid var(--primary-color);
   border-radius: 4px;
   text-align: center;
   justify-content: center;
@@ -862,12 +863,12 @@ p {
 }
 
 .event-title {
-  color: #0F292F;
+  color: var(--dark-color);
   font-size: 36px;
 }
 
 .todo-title {
-  color: var(--primary-color);
+  color: var(--dark-color);
   font-size: 48px;
 }
 
@@ -877,8 +878,8 @@ p {
   margin-left: 10px;
   margin-right: 10px;
   padding: 20px;
-  background-color: #CCCCCC;
-  border: 5px solid #501F3A;
+  background-color: var(--accent-color);
+  border: 5px solid var(--primary-color);
   border-radius: 4px;
   text-align: center;
   justify-content: center;
@@ -895,7 +896,7 @@ p {
 .costs-table th,
   .costs-table td {
     padding: 8px;
-    border-bottom: 1px solid #501F3A;
+    border-bottom: 1px solid var(--primary-color);
     text-align: left;
     justify-content: center;
     align-items: center;
@@ -905,8 +906,8 @@ p {
     width: 100%;
     margin: 100px 50px;
     padding: 20px;
-    background-color: #CCCCCC;
-    border: 5px solid #501F3A;
+    background-color: var(--accent-color);
+    border: 5px solid var(--primary-color);
     border-radius: 4px;
     text-align: center;
     display: flex;
@@ -958,21 +959,21 @@ p {
 }
 
 .table th {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--dark-color);
+  color: var(--accent-color);
 }
 
 .table tr:hover {
-  background-color: var(--dark-color);
+  background-color: var(--success-color);
   cursor: pointer;
 }
 
 .table .revenue-entry {
-  background-color: var(--success-color);
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .table .expense-entry {
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--accent-color);
 }

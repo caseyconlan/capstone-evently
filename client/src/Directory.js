@@ -70,9 +70,9 @@ const Directory = () => {
       <div align="center">
       <h2 className="event-title">Add Entry</h2>
       <form onSubmit={handleSubmit}>
-        <div className="date-field">
+        <div>
           <label htmlFor="type">Type:</label>
-          <select className="login-field"
+          <select className="date-field"
             id="type"
             value={type}
             onChange={e => setType(e.target.value)}
